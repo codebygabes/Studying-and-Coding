@@ -1,0 +1,11 @@
+id_processo;numero_sigilo;sigla_grau;procedimento;ramo_justica;sigla_tribunal;id_tribunal;recurso;id_ultimo_oj;dt_recebimento;id_ultima_classe;flag_violencia_domestica;flag_feminicidio;flag_ambiental;flag_quilombolas;flag_indigenas;flag_infancia;decisao;dt_resolvido;cnm1;primeirasentm1;baixm1;decm1;mpum1;julgadom1;desm1;susm1
+323961063;sigiloso(323961063);G1;Conhecimento não criminal;Justiça Estadual;TJDFT;71;0;81523;2020-03-12;7;0;0;0;0;0;0;0;2021-03-19;0;0;0;;0;;0;0
+323961064;sigiloso(323961064);G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;86612;2021-06-07;10943;0;0;0;0;0;0;0;2023-07-07;0;0;0;;0;;0;0
+323961065;sigiloso(323961065);G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;81608;2020-01-10;313;0;0;0;0;0;0;0;2023-03-09;0;;0;;0;;0;0
+323961068;sigiloso(323961068);G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;52922;2021-06-30;283;1;0;0;0;0;0;0;2022-09-18;0;0;0;;0;;0;0
+323961069;sigiloso(323961069);G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;77284;2017-12-20;313;0;0;0;0;0;0;0;2020-12-02;0;0;0;;0;;0;0
+323961073;sigiloso(323961073);G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;16283;2019-10-01;425;0;0;0;0;0;0;0;2020-07-14;0;0;0;;0;;0;0
+323961074;sigiloso(323961074);G1;Conhecimento não criminal;Justiça Estadual;TJDFT;71;0;81523;2020-03-13;7;0;0;0;0;0;0;0;2021-02-16;0;0;0;;0;;0;0
+323961075;sigiloso(323961075);G1;Conhecimento não criminal;Justiça Estadual;TJDFT;71;0;16279;2014-09-04;99;0;0;0;0;0;0;0;2014-11-19;0;0;0;;0;;0;0
+323961076;sigiloso(323961076);G1;Conhecimento não criminal;Justiça Estadual;TJDFT;71;0;6722;2021-01-28;7;0;0;0;0;0;0;0;2021-05-24;0;0;0;;0;;0;0
+323961078;0002124-71.2020.8.07.0005;G1;Conhecimento criminal;Justiça Estadual;TJDFT;71;0;16283;2020-08-06;10943;1;0;0;0;0;0;0;2023-09-25;0;0;0;;0;;0;0
