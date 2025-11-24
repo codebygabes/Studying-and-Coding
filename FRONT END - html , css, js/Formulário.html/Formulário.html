@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Formulário</title>
+</head>
+<body>
+    <!-- Criando uma BOX do formulário-->
+    
+    <div class="box">
+        <form action="">
+            <fieldset>
+                <legend><b>Envio de Currículo</b></legend>
+                <br>
+    
+    <!-- Criando Input pra Nome-->
+   
+                <div class="inputBox">
+                    <input type="text" name="nome" id="nome" class="inputUser" required>
+                    <label for="nome" class="labelInput">Nome Completo</label>
+                </div>
+                <br><br>
+   
+    <!-- Criando Input pra E-mail-->
+    
+                <div class="inputBox">
+                    <input type="text" name="email" id="email" class="inputUser" required>
+                    <label for="email" class="labelInput">Email</label>
+                </div>
+                <br><br>
+    <!-- Criando Input pra Telefone-->
+
+                <div class="inputBox">
+                    <input type="tel" name="telefone" id="telefone" class="inputUser" required>
+                    <label for="telefone" class="labelInput">Telefone</label>
+                </div>
+                <br><br>
+    
+    <!-- Criando Label pra seleção de genero-->
+    
+                
+    
+    <!-- Criando type DATE para nascimento-->
+    
+                <label for="data_nascimento"><b>Data de Nascimento:</b></label>
+                <input type="date" name="data_nascimento" id="data_nascimento" required>
+                <br><br><br>
+    
+    <!-- Criando Input pra Cidade-->
+    
+                <div class="inputBox">
+                    <input type="text" name="cidade/estado" id="cidade/estado" class="inputUser" required>
+                    <label for="cidade/estado" class="labelInput">Cidade/Estado</label>
+                </div>
+                <br><br>
+    
+    <!-- Criando Input pra Estado-->
+    
+            
+    
+    <!-- Criando Input pra Endereço-->
+    
+                <div class="inputBox">
+                    <input type="text" name="endereco" id="endereco" class="inputUser" required>
+                    <label for="endereco" class="labelInput">Endereço</label>
+                </div>
+                <br><br>
+
+    <!-- Criando Input pra Cursos-->
+    
+    <div class="custom-checkbox-list">
+        
+        <div class="inputBox">
+            <input type="text" name="cursos" id="cursos" class="inputUser" required>
+            <label for="cursos" class="labelInput">Cursos</label>
+        </div>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="cursos" value="cursos">
+            <span class="checkmark"></span>
+            JavaScript
+        </label>
+        
+        <label class="custom-checkbox">
+            <input type="checkbox" name="cursos" value="cursos">
+            <span class="checkmark"></span>
+            PhP
+        </label>
+        
+        <label class="custom-checkbox">
+            <input type="checkbox" name="cursos" value="cursos">
+            <span class="checkmark"></span>
+            N8N
+        </label>
+        
+        <label class="custom-checkbox">
+            <input type="checkbox" name="cursos" value="cursos">
+            <span class="checkmark"></span>
+            Java
+        </label>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="cursos" value="cursos">
+            <span class="checkmark"></span>
+            Outros...
+        </label>
+    </div>
+    <br><br>
+
+    <!-- Criando Input pra Anexar Arquivo-->
+
+                <div class="inputFile">
+                    <label for="arquivo" class="inputUser">
+                        <i class="fas-fa-paperclip"></i>
+                        Escolher Arquivo
+                    </label>
+                    <input type="file" name="arquivo" id="arquivo" class="file-input">
+                    <span class="file-name">Nenhum Arquivo Selecionado</span>
+                </div>
+    
+    <!-- Criando type pra SUBMIT-->
+ 
+                <input type="submit" name="submit" id="submit">
+
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
