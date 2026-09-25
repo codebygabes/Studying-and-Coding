@@ -1,0 +1,41 @@
+/* deixando a pag mais organizada */
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+/* separando cada parte da atividade */
+section {
+    margin-bottom: 25px;
+}
+
+/* estilo pros botoes */
+button {
+    padding: 8px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* tamanho dos campos */
+input,
+select {
+    padding: 8px;
+    width: 300px;
+}
+
+/* destacando o valor do contador */
+#contador {
+    font-size: 20px;
+    margin: 10px;
+}
+
+/* dando um espaco onde os novos elementos aparecem */
+#area-textos,
+#area-listas {
+    margin-top: 15px;
+}
+
+/* deixando os itens das listas separados */
+li {
+    margin: 5px;
+}

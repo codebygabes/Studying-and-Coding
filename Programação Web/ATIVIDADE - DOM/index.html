@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-br" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Atividade DOM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<!-- titulo da atividade -->
+<h1>Atividade 2 - DOM: conceitos básicos</h1>
+
+<!-- parte do contador de cliques -->
+<section>
+    <h2>Contador de cliques</h2>
+
+    <!-- botoes que vao ser usados no javascript -->
+    <button id="btn-adicionar">Adicionar</button>
+    <button id="btn-diminuir">Diminuir</button>
+
+    <!-- aqui aparece o numero do contador -->
+    <span id="contador">0</span>
+</section>
+
+<!-- parte para add textos -->
+<section>
+    <h2>Adicionar texto dinamico</h2>
+
+    <!-- campo onde a pessoa vai escrever -->
+    <input
+            type="text"
+            id="campo-texto"
+            placeholder="Digite algo e aperte Enter"
+    >
+
+    <!-- mostra a qntd de caracteres digitados -->
+    <p>
+        Caracteres:
+        <span id="quantidade-caracteres">0</span>
+    </p>
+
+    <!-- os paragrafos novos vao aparecer aqui -->
+    <div id="area-textos"></div>
+</section>
+
+<!-- parte para add listas -->
+<section>
+    <h2>Adicionar novo item</h2>
+
+    <!-- aqui escolhe o tipo da lista -->
+    <select id="tipo-lista">
+        <option value="ul">Lista nao ordenada</option>
+        <option value="ol">Lista ordenada</option>
+    </select>
+
+    <!-- botao que cria a lista -->
+    <button id="btn-lista">Adicionar lista</button>
+
+    <!-- as listas novas vao aparecer aqui -->
+    <div id="area-listas"></div>
+</section>
+
+<!-- parte do reset -->
+<section>
+    <h2>Reset</h2>
+
+    <!-- botao que limpa todas as interacoes -->
+    <button id="btn-reset">Resetar tudo</button>
+</section>
+
+<!-- fontes consultadas para fazer a atividade -->
+<section>
+    <h2>Fontes consultadas</h2>
+
+    <ul>
+        <li>
+            <!-- fonte sobre DOM -->
+            <a
+                    href="https://www.w3schools.com/js/js_htmldom.asp"
+                    target="_blank"
+            >
+                W3Schools - JavaScript HTML DOM
+            </a>
+        </li>
+
+        <li>
+            <!-- fonte sobre eventos -->
+            <a
+                    href="https://www.w3schools.com/js/js_htmldom_eventlistener.asp"
+                    target="_blank"
+            >
+                W3Schools - addEventListener
+            </a>
+        </li>
+
+        <li>
+            <!-- fonte sobre eventos do teclado -->
+            <a
+                    href="https://www.w3schools.com/js/js_events_keyboard.asp"
+                    target="_blank"
+            >
+                W3Schools - eventos do teclado
+            </a>
+        </li>
+
+        <li>
+            <!-- site usado para pesquisar duvidas -->
+            <a
+                    href="https://stackoverflow.com/"
+                    target="_blank"
+            >
+                Stack Overflow - duvidas sobre JavaScript e DOM
+            </a>
+        </li>
+    </ul>
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
