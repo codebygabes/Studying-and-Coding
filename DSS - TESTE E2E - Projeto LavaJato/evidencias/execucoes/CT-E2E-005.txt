@@ -1,0 +1,18 @@
+Caso: CT-E2E-005 - Login com campos vazios
+Data: 30/09/2026 22:37:10
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+
+
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+❌ O login é obrigatório.
+
+Acesso encerrado.

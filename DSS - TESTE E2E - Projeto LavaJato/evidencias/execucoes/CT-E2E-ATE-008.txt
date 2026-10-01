@@ -1,0 +1,79 @@
+Caso: CT-E2E-ATE-008 - Cadastro de atendimento não deixa registro parcial (DEF-E2E-004)
+Data: 30/09/2026 22:37:21
+Código de saída: 1
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+4
+1
+2
+1
+Lavagem rapida
+1
+1
+N
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- ATENDIMENTOS ---
+1 - Cadastrar atendimento
+2 - Listar atendimentos
+3 - Atualizar atendimento
+4 - Excluir atendimento
+0 - Voltar
+Opção: 
+-- Cadastrar Atendimento --
+
+-- Lista de Clientes --
+---------------------------------------------------------------
+ID    Nome                 Telefone        Placa      Modelo       Marca       
+---------------------------------------------------------------
+1     Joao                 61996569908     ABC1234    Civic        Honda       
+2     Maria                61993469798     DFG5678    Celta        Chevrolet   
+3     Pedro                61991234567     HIJ9012    HB20         Hyundai     
+---------------------------------------------------------------
+ID do cliente: 
+-- Lista de Funcionários --
+-------------------------------------------
+ID    Nome                 Cargo           Telefone       
+-------------------------------------------
+1     Carlos               Lavador         61988888888    
+2     Jose                 Lavador         61977777777    
+-------------------------------------------
+ID do funcionário: Observação: 
+-- Lista de Serviços --
+--------------------------------------------------
+ID    Nome                 Descrição            Valor     
+--------------------------------------------------
+1     Lavagem Completa     Lavagem externa e interna R$ 50.00
+2     Lavagem Parcial      Lavagem externa      R$ 35.00
+--------------------------------------------------
+ID do serviço a adicionar: Quantidade: Adicionar outro serviço? (S/N): Atendimento cadastrado!
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "model.Atendimento.getIdAtendimento()" because the return value of "model.AtendimentoServico.getAtendimento()" is null
+	at dao.AtendimentoServicoDAO.inserir(AtendimentoServicoDAO.java:30)
+	at services.AtendimentoService.cadastrarAtendimento(AtendimentoService.java:41)
+	at applications.Main.cadastrarAtendimento(Main.java:634)
+	at applications.Main.menuAtendimento(Main.java:553)
+	at applications.Main.main(Main.java:74)

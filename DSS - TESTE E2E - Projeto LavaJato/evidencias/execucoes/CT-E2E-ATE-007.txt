@@ -1,0 +1,58 @@
+Caso: CT-E2E-ATE-007 - Entrada inválida (texto no lugar do ID) (DEF-E2E-003)
+Data: 30/09/2026 22:37:23
+Código de saída: 1
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+4
+4
+abc
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- ATENDIMENTOS ---
+1 - Cadastrar atendimento
+2 - Listar atendimentos
+3 - Atualizar atendimento
+4 - Excluir atendimento
+0 - Voltar
+Opção: 
+-- Lista de Atendimentos --
+---------------------------------------------------------------
+ID    ID Cliente   ID Func.     Data                   Observação          
+---------------------------------------------------------------
+1     1            1            2026-09-30T22:37:22    Primeiro atendimento teste
+2     2            2            2026-09-30T22:37:22    Segundo atendimento teste
+3     3            1            2026-09-30T22:37:22    Terceiro atendimento teste
+---------------------------------------------------------------
+
+Digite o ID do atendimento a excluir: Exception in thread "main" java.util.InputMismatchException
+	at java.base/java.util.Scanner.throwFor(Scanner.java:977)
+	at java.base/java.util.Scanner.next(Scanner.java:1632)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2297)
+	at java.base/java.util.Scanner.nextInt(Scanner.java:2251)
+	at applications.Main.excluirAtendimento(Main.java:713)
+	at applications.Main.menuAtendimento(Main.java:562)
+	at applications.Main.main(Main.java:74)

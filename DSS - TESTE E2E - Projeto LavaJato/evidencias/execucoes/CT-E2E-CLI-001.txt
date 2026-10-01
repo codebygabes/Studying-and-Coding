@@ -1,0 +1,84 @@
+Caso: CT-E2E-CLI-001 - Cadastrar cliente válido
+Data: 30/09/2026 22:37:31
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+1
+1
+Ana Souza
+61999990000
+QWE1R23
+Onix
+Chevrolet
+2
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- CLIENTES ---
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Atualizar cliente
+4 - Excluir cliente
+0 - Voltar
+Opção: 
+-- Cadastrar Cliente --
+Nome: Telefone: Placa do veículo: Modelo do veículo: Marca do veículo: Cliente cadastrado!
+
+--- CLIENTES ---
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Atualizar cliente
+4 - Excluir cliente
+0 - Voltar
+Opção: 
+-- Lista de Clientes --
+---------------------------------------------------------------
+ID    Nome                 Telefone        Placa      Modelo       Marca       
+---------------------------------------------------------------
+1     Joao                 61996569908     ABC1234    Civic        Honda       
+2     Maria                61993469798     DFG5678    Celta        Chevrolet   
+3     Pedro                61991234567     HIJ9012    HB20         Hyundai     
+4     Ana Souza            61999990000     QWE1R23    Onix         Chevrolet   
+---------------------------------------------------------------
+
+--- CLIENTES ---
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Atualizar cliente
+4 - Excluir cliente
+0 - Voltar
+Opção: Voltando ao menu principal...
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+Saindo do sistema. Até logo!

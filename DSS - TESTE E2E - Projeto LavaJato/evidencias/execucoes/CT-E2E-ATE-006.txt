@@ -1,0 +1,70 @@
+Caso: CT-E2E-ATE-006 - Excluir atendimento com serviço associado (DEF-E2E-001)
+Data: 30/09/2026 22:37:26
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+4
+4
+1
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- ATENDIMENTOS ---
+1 - Cadastrar atendimento
+2 - Listar atendimentos
+3 - Atualizar atendimento
+4 - Excluir atendimento
+0 - Voltar
+Opção: 
+-- Lista de Atendimentos --
+---------------------------------------------------------------
+ID    ID Cliente   ID Func.     Data                   Observação          
+---------------------------------------------------------------
+1     1            1            2026-09-30T22:37:25    Primeiro atendimento teste
+2     2            2            2026-09-30T22:37:25    Segundo atendimento teste
+3     3            1            2026-09-30T22:37:25    Terceiro atendimento teste
+---------------------------------------------------------------
+
+Digite o ID do atendimento a excluir: Erro: Cannot delete or update a parent row: a foreign key constraint fails (`lavajato`.`atendimento_servico`, CONSTRAINT `atendimento_servico_ibfk_1` FOREIGN KEY (`id_atendimento`) REFERENCES `atendimento` (`id_atendimento`))
+
+--- ATENDIMENTOS ---
+1 - Cadastrar atendimento
+2 - Listar atendimentos
+3 - Atualizar atendimento
+4 - Excluir atendimento
+0 - Voltar
+Opção: Voltando ao menu principal...
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+Saindo do sistema. Até logo!

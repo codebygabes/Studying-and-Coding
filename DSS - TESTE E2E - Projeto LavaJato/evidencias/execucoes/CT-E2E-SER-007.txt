@@ -1,0 +1,69 @@
+Caso: CT-E2E-SER-007 - Excluir serviço com vínculo (DEF-E2E-001)
+Data: 30/09/2026 22:37:15
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+3
+4
+1
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- SERVIÇOS ---
+1 - Cadastrar serviço
+2 - Listar serviços
+3 - Atualizar serviço
+4 - Excluir serviço
+0 - Voltar
+Opção: 
+-- Lista de Serviços --
+--------------------------------------------------
+ID    Nome                 Descrição            Valor     
+--------------------------------------------------
+1     Lavagem Completa     Lavagem externa e interna R$ 50.00
+2     Lavagem Parcial      Lavagem externa      R$ 35.00
+--------------------------------------------------
+
+Digite o ID do serviço a excluir: Erro: Cannot delete or update a parent row: a foreign key constraint fails (`lavajato`.`atendimento_servico`, CONSTRAINT `atendimento_servico_ibfk_2` FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`))
+
+--- SERVIÇOS ---
+1 - Cadastrar serviço
+2 - Listar serviços
+3 - Atualizar serviço
+4 - Excluir serviço
+0 - Voltar
+Opção: Voltando ao menu principal...
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+Saindo do sistema. Até logo!

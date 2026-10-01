@@ -1,0 +1,19 @@
+Caso: CT-E2E-004 - Login com senha inválida
+Data: 30/09/2026 22:37:11
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+senha-errada
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login ou senha incorretos.
+
+
+Acesso encerrado.

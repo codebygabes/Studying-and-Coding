@@ -1,0 +1,29 @@
+Caso: CT-E2E-001 - Inicializar com banco disponível
+Data: 30/09/2026 22:37:10
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+Saindo do sistema. Até logo!

@@ -1,0 +1,70 @@
+Caso: CT-E2E-FUN-006 - Excluir funcionário sem atendimento
+Data: 30/09/2026 22:37:36
+Código de saída: 0
+
+=== ENTRADA (o que foi digitado) ===
+admin
+1234
+2
+4
+3
+0
+0
+0
+0
+
+=== SAÍDA (o que apareceu no console) ===
+✅ Banco de dados conectado com sucesso!
+
+========================================
+          LOGIN - LAVA-JATO             
+========================================
+Login: Senha: 
+Login realizado com sucesso!
+
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+--- FUNCIONÁRIOS ---
+1 - Cadastrar funcionário
+2 - Listar funcionários
+3 - Atualizar funcionário
+4 - Excluir funcionário
+0 - Voltar
+Opção: 
+-- Lista de Funcionários --
+-------------------------------------------
+ID    Nome                 Cargo           Telefone       
+-------------------------------------------
+1     Carlos               Lavador         61988888888    
+2     Jose                 Lavador         61977777777    
+3     Sem Atendimento      Lavador         61900000002    
+-------------------------------------------
+
+Digite o ID do funcionário a excluir: Funcionário removido!
+
+--- FUNCIONÁRIOS ---
+1 - Cadastrar funcionário
+2 - Listar funcionários
+3 - Atualizar funcionário
+4 - Excluir funcionário
+0 - Voltar
+Opção: Voltando ao menu principal...
+========================================
+       SISTEMA LAVA-JATO - MENU        
+========================================
+  1 - Gerenciar Clientes
+  2 - Gerenciar Funcionários
+  3 - Gerenciar Serviços
+  4 - Gerenciar Atendimentos
+  0 - Sair
+========================================
+Escolha uma opção: 
+Saindo do sistema. Até logo!
