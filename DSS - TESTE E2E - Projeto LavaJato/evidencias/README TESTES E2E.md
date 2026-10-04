@@ -126,9 +126,9 @@ Os testes verificam o **comportamento esperado** pelo Documento de Visão. Por i
 
 ### 7.0 Visão geral da execução automatizada
 
-- **Relatório exportado do IntelliJ:** [relatorio-junit.html](<evidencias/relatorio-junit.html>) (36 testes, 12 reprovados e 24 aprovados, em cerca de 28 s). Abra o arquivo no navegador.
-- **Árvore de resultados:** [parte 1](<evidencias/JUNIT-arvore-completa-1.png>) e [parte 2](<evidencias/JUNIT-arvore-completa-2.png>).
-- **Registro em texto de todos os casos:** pasta [`evidencias/execucoes/`](<evidencias/execucoes/>), com um arquivo por caso.
+- **Relatório exportado do IntelliJ:** [relatorio-junit.html](relatorio-junit.html) (36 testes, 12 reprovados e 24 aprovados, em cerca de 28 s). Abra o arquivo no navegador.
+- **Árvore de resultados:** [parte 1](JUNIT-arvore-completa-1.png) e [parte 2](JUNIT-arvore-completa-2.png).
+- **Registro em texto de todos os casos:** pasta [`evidencias/execucoes/`](execucoes/), com um arquivo por caso.
 
 As evidências estão salvas em subpastas dentro de `evidencias`, uma por seção (7.1 a 7.5). Os arquivos que começam com `E2E-` são prints da execução manual de 15/09/2026; os que começam com `JUNIT-` são da execução automatizada de 30/09/2026.
 
@@ -139,23 +139,23 @@ As evidências estão salvas em subpastas dentro de `evidencias`, uma por seçã
 
 Demonstra que o sistema conseguiu conectar ao MySQL e apresentou a tela de autenticação.
 
-![Figura 1 — Conexão com o banco e tela de login](<evidencias/7.1 Sistema e autenticação/E2E-001-conexao-login.png>)
+![Figura 1 — Conexão com o banco e tela de login](7.1%20Sistema%20e%20autentica%C3%A7%C3%A3o/E2E-001-conexao-login.png)
 
 #### Figura 2 — Login válido e menu principal (execução manual)
 
 Demonstra que o usuário conseguiu autenticar-se e acessar as funcionalidades do sistema.
 
-![Figura 2 — Login válido e menu principal](<evidencias/7.1 Sistema e autenticação/E2E-002-menu-principal.png>)
+![Figura 2 — Login válido e menu principal](7.1%20Sistema%20e%20autentica%C3%A7%C3%A3o/E2E-002-menu-principal.png)
 
 #### Execução automatizada
 
 | Caso | Registro em texto | Prints da execução automatizada |
 |---|---|---|
-| CT-E2E-001 | [CT-E2E-001.txt](<evidencias/execucoes/CT-E2E-001.txt>) | — |
-| CT-E2E-002 | [CT-E2E-002.txt](<evidencias/execucoes/CT-E2E-002.txt>) | — |
-| CT-E2E-003 | [CT-E2E-003.txt](<evidencias/execucoes/CT-E2E-003.txt>) | — |
-| CT-E2E-004 | [CT-E2E-004.txt](<evidencias/execucoes/CT-E2E-004.txt>) | — |
-| CT-E2E-005 | [CT-E2E-005.txt](<evidencias/execucoes/CT-E2E-005.txt>) | — |
+| CT-E2E-001 | [CT-E2E-001.txt](execucoes/CT-E2E-001.txt) | — |
+| CT-E2E-002 | [CT-E2E-002.txt](execucoes/CT-E2E-002.txt) | — |
+| CT-E2E-003 | [CT-E2E-003.txt](execucoes/CT-E2E-003.txt) | — |
+| CT-E2E-004 | [CT-E2E-004.txt](execucoes/CT-E2E-004.txt) | — |
+| CT-E2E-005 | [CT-E2E-005.txt](execucoes/CT-E2E-005.txt) | — |
 
 ---
 
@@ -166,43 +166,43 @@ Demonstra que o usuário conseguiu autenticar-se e acessar as funcionalidades do
 
 Demonstra o cadastro de um cliente válido e sua posterior exibição na listagem.
 
-![Figura 3 — Cadastro e consulta de cliente](<evidencias/7.2 Clientes/E2E-CLI-001-cadastro.png>)
+![Figura 3 — Cadastro e consulta de cliente](7.2%20Clientes/E2E-CLI-001-cadastro.png)
 
 #### Figura 4 — Validação de placa inválida (execução manual)
 
 Demonstra que o sistema rejeitou uma placa fora dos formatos aceitos.
 
-![Figura 4 — Validação de placa inválida](<evidencias/7.2 Clientes/E2E-CLI-002-placa-invalida.png>)
+![Figura 4 — Validação de placa inválida](7.2%20Clientes/E2E-CLI-002-placa-invalida.png)
 
 #### Figura 5 — Atualização de cliente (execução manual)
 
 Demonstra que os dados de um cliente foram alterados e apareceram atualizados na consulta.
 
-![Figura 5 — Atualização de cliente](<evidencias/7.2 Clientes/E2E-CLI-004-atualizacao.png>)
+![Figura 5 — Atualização de cliente](7.2%20Clientes/E2E-CLI-004-atualizacao.png)
 
 #### Figura 6 — Restrição ao excluir cliente relacionado (execução manual)
 
 Demonstra que o banco impediu a exclusão de um cliente associado a atendimentos. A mensagem exibida, entretanto, é técnica e poderia ser tratada pela aplicação.
 
-![Figura 6 — Restrição ao excluir cliente relacionado](<evidencias/7.2 Clientes/E2E-CLI-006-restricao-exclusao.png>)
+![Figura 6 — Restrição ao excluir cliente relacionado](7.2%20Clientes/E2E-CLI-006-restricao-exclusao.png)
 
 #### Figura 7 — Exclusão de ID inexistente (execução manual)
 
 Demonstra que o sistema informou sucesso mesmo quando o ID informado não existia. Esse comportamento foi registrado como defeito.
 
-![Figura 7 — Exclusão de ID inexistente](<evidencias/7.2 Clientes/E2E-CLI-007-exclusao-id-inexistente.png>)
+![Figura 7 — Exclusão de ID inexistente](7.2%20Clientes/E2E-CLI-007-exclusao-id-inexistente.png)
 
 #### Execução automatizada
 
 | Caso | Registro em texto | Prints da execução automatizada |
 |---|---|---|
-| CT-E2E-CLI-001 | [CT-E2E-CLI-001.txt](<evidencias/execucoes/CT-E2E-CLI-001.txt>) | — |
-| CT-E2E-CLI-002 | [CT-E2E-CLI-002.txt](<evidencias/execucoes/CT-E2E-CLI-002.txt>) | — |
-| CT-E2E-CLI-003 | [CT-E2E-CLI-003.txt](<evidencias/execucoes/CT-E2E-CLI-003.txt>) | — |
-| CT-E2E-CLI-004 | [CT-E2E-CLI-004.txt](<evidencias/execucoes/CT-E2E-CLI-004.txt>) | — |
-| CT-E2E-CLI-005 | [CT-E2E-CLI-005.txt](<evidencias/execucoes/CT-E2E-CLI-005.txt>) | — |
-| CT-E2E-CLI-006 | [CT-E2E-CLI-006.txt](<evidencias/execucoes/CT-E2E-CLI-006.txt>) | [falha 1](<evidencias/7.2 Clientes/JUNIT-CLI-006-falha-1.png>) · [falha 2](<evidencias/7.2 Clientes/JUNIT-CLI-006-falha-2.png>) · [console 1](<evidencias/7.2 Clientes/JUNIT-CLI-006-console-1.png>) · [console 2](<evidencias/7.2 Clientes/JUNIT-CLI-006-console-2.png>) |
-| CT-E2E-CLI-007 | [CT-E2E-CLI-007.txt](<evidencias/execucoes/CT-E2E-CLI-007.txt>) | [falha 1](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-1.png>) · [falha 2](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-2.png>) · [falha 3](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-3.png>) · [console 1](<evidencias/7.2 Clientes/JUNIT-CLI-007-console-1.png>) · [console 2](<evidencias/7.2 Clientes/JUNIT-CLI-007-console-2.png>) |
+| CT-E2E-CLI-001 | [CT-E2E-CLI-001.txt](execucoes/CT-E2E-CLI-001.txt) | — |
+| CT-E2E-CLI-002 | [CT-E2E-CLI-002.txt](execucoes/CT-E2E-CLI-002.txt) | — |
+| CT-E2E-CLI-003 | [CT-E2E-CLI-003.txt](execucoes/CT-E2E-CLI-003.txt) | — |
+| CT-E2E-CLI-004 | [CT-E2E-CLI-004.txt](execucoes/CT-E2E-CLI-004.txt) | — |
+| CT-E2E-CLI-005 | [CT-E2E-CLI-005.txt](execucoes/CT-E2E-CLI-005.txt) | — |
+| CT-E2E-CLI-006 | [CT-E2E-CLI-006.txt](execucoes/CT-E2E-CLI-006.txt) | [falha 1](7.2%20Clientes/JUNIT-CLI-006-falha-1.png) · [falha 2](7.2%20Clientes/JUNIT-CLI-006-falha-2.png) · [console 1](7.2%20Clientes/JUNIT-CLI-006-console-1.png) · [console 2](7.2%20Clientes/JUNIT-CLI-006-console-2.png) |
+| CT-E2E-CLI-007 | [CT-E2E-CLI-007.txt](execucoes/CT-E2E-CLI-007.txt) | [falha 1](7.2%20Clientes/JUNIT-CLI-007-falha-1.png) · [falha 2](7.2%20Clientes/JUNIT-CLI-007-falha-2.png) · [falha 3](7.2%20Clientes/JUNIT-CLI-007-falha-3.png) · [console 1](7.2%20Clientes/JUNIT-CLI-007-console-1.png) · [console 2](7.2%20Clientes/JUNIT-CLI-007-console-2.png) |
 
 ---
 
@@ -213,35 +213,35 @@ Demonstra que o sistema informou sucesso mesmo quando o ID informado não existi
 
 Demonstra a atualização de dados de um funcionário e a confirmação apresentada pelo sistema.
 
-![Figura 8 — Atualização de funcionário](<evidencias/7.3 Funcionários/E2E-FUN-005-atualizacao.png>)
+![Figura 8 — Atualização de funcionário](7.3%20Funcion%C3%A1rios/E2E-FUN-005-atualizacao.png)
 
 #### Figura 9 — Validação de campos obrigatórios (execução manual)
 
 Demonstra as mensagens apresentadas quando nome, cargo ou telefone não são preenchidos.
 
-![Figura 9a — Validação de nome obrigatório](<evidencias/7.3 Funcionários/E2E-FUN-002-nome-vazio.png>)
+![Figura 9a — Validação de nome obrigatório](7.3%20Funcion%C3%A1rios/E2E-FUN-002-nome-vazio.png)
 
-![Figura 9b — Validação de cargo obrigatório](<evidencias/7.3 Funcionários/E2E-FUN-003-cargo-vazio.png>)
+![Figura 9b — Validação de cargo obrigatório](7.3%20Funcion%C3%A1rios/E2E-FUN-003-cargo-vazio.png)
 
-![Figura 9c — Validação de telefone obrigatório](<evidencias/7.3 Funcionários/E2E-FUN-004-telefone-vazio.png>)
+![Figura 9c — Validação de telefone obrigatório](7.3%20Funcion%C3%A1rios/E2E-FUN-004-telefone-vazio.png)
 
 #### Figura 10 — Restrição ao excluir funcionário relacionado (execução manual)
 
 Demonstra o bloqueio da exclusão de funcionário associado a atendimento.
 
-![Figura 10 — Restrição ao excluir funcionário relacionado](<evidencias/7.3 Funcionários/E2E-FUN-007-restricao-exclusao.png>)
+![Figura 10 — Restrição ao excluir funcionário relacionado](7.3%20Funcion%C3%A1rios/E2E-FUN-007-restricao-exclusao.png)
 
 #### Execução automatizada
 
 | Caso | Registro em texto | Prints da execução automatizada |
 |---|---|---|
-| CT-E2E-FUN-001 | [CT-E2E-FUN-001.txt](<evidencias/execucoes/CT-E2E-FUN-001.txt>) | — |
-| CT-E2E-FUN-002 | [CT-E2E-FUN-002.txt](<evidencias/execucoes/CT-E2E-FUN-002.txt>) | — |
-| CT-E2E-FUN-003 | [CT-E2E-FUN-003.txt](<evidencias/execucoes/CT-E2E-FUN-003.txt>) | — |
-| CT-E2E-FUN-004 | [CT-E2E-FUN-004.txt](<evidencias/execucoes/CT-E2E-FUN-004.txt>) | — |
-| CT-E2E-FUN-005 | [CT-E2E-FUN-005.txt](<evidencias/execucoes/CT-E2E-FUN-005.txt>) | — |
-| CT-E2E-FUN-006 | [CT-E2E-FUN-006.txt](<evidencias/execucoes/CT-E2E-FUN-006.txt>) | — |
-| CT-E2E-FUN-007 | [CT-E2E-FUN-007.txt](<evidencias/execucoes/CT-E2E-FUN-007.txt>) | [falha 1](<evidencias/7.3 Funcionários/JUNIT-FUN-007-falha-1.png>) · [falha 2](<evidencias/7.3 Funcionários/JUNIT-FUN-007-falha-2.png>) · [console 1](<evidencias/7.3 Funcionários/JUNIT-FUN-007-console-1.png>) · [console 2](<evidencias/7.3 Funcionários/JUNIT-FUN-007-console-2.png>) |
+| CT-E2E-FUN-001 | [CT-E2E-FUN-001.txt](execucoes/CT-E2E-FUN-001.txt) | — |
+| CT-E2E-FUN-002 | [CT-E2E-FUN-002.txt](execucoes/CT-E2E-FUN-002.txt) | — |
+| CT-E2E-FUN-003 | [CT-E2E-FUN-003.txt](execucoes/CT-E2E-FUN-003.txt) | — |
+| CT-E2E-FUN-004 | [CT-E2E-FUN-004.txt](execucoes/CT-E2E-FUN-004.txt) | — |
+| CT-E2E-FUN-005 | [CT-E2E-FUN-005.txt](execucoes/CT-E2E-FUN-005.txt) | — |
+| CT-E2E-FUN-006 | [CT-E2E-FUN-006.txt](execucoes/CT-E2E-FUN-006.txt) | — |
+| CT-E2E-FUN-007 | [CT-E2E-FUN-007.txt](execucoes/CT-E2E-FUN-007.txt) | [falha 1](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-falha-1.png) · [falha 2](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-falha-2.png) · [console 1](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-console-1.png) · [console 2](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-console-2.png) |
 
 ---
 
@@ -252,45 +252,45 @@ Demonstra o bloqueio da exclusão de funcionário associado a atendimento.
 
 Demonstra o cadastro de um serviço válido e sua exibição na listagem.
 
-![Figura 11 — Cadastro e consulta de serviço](<evidencias/7.4 Serviços/E2E-SER-001-cadastro.png>)
+![Figura 11 — Cadastro e consulta de serviço](7.4%20Servi%C3%A7os/E2E-SER-001-cadastro.png)
 
 #### Figura 12 — Valor inválido ou entrada não numérica (execução manual)
 
 Demonstra a validação de valor igual a zero ou o encerramento do programa por `InputMismatchException` quando foi informado um valor incompatível.
 
-![Figura 12 — Valor inválido ou entrada não numérica](<evidencias/7.4 Serviços/E2E-SER-004-valor-invalido.png>)
+![Figura 12 — Valor inválido ou entrada não numérica](7.4%20Servi%C3%A7os/E2E-SER-004-valor-invalido.png)
 
 #### Figura 13 — Restrição ao excluir serviço relacionado (execução manual)
 
 Demonstra o bloqueio da exclusão de serviço associado a atendimento.
 
-![Figura 13 — Restrição ao excluir serviço relacionado](<evidencias/7.4 Serviços/E2E-SER-007-restricao-exclusao.png>)
+![Figura 13 — Restrição ao excluir serviço relacionado](7.4%20Servi%C3%A7os/E2E-SER-007-restricao-exclusao.png)
 
 #### Figura 14 — Valor com ponto (49.90) encerra o programa (execução manual)
 
 Demonstra que, ao digitar o valor no formato do exemplo mostrado na própria tela (`49.90`), o programa encerra com `InputMismatchException`.
 
-![Figura 14 — Valor com ponto encerra o programa](<evidencias/7.4 Serviços/E2E-SER-009-valor-com-ponto.png>)
+![Figura 14 — Valor com ponto encerra o programa](7.4%20Servi%C3%A7os/E2E-SER-009-valor-com-ponto.png)
 
 #### Figura 15 — Valor com vírgula (49,90) é aceito (execução manual)
 
 Demonstra que o mesmo cadastro funciona quando o valor é digitado com vírgula (`49,90`).
 
-![Figura 15 — Valor com vírgula é aceito](<evidencias/7.4 Serviços/E2E-SER-009-valor-com-virgula.png>)
+![Figura 15 — Valor com vírgula é aceito](7.4%20Servi%C3%A7os/E2E-SER-009-valor-com-virgula.png)
 
 #### Execução automatizada
 
 | Caso | Registro em texto | Prints da execução automatizada |
 |---|---|---|
-| CT-E2E-SER-001 | [CT-E2E-SER-001.txt](<evidencias/execucoes/CT-E2E-SER-001.txt>) | — |
-| CT-E2E-SER-002 | [CT-E2E-SER-002.txt](<evidencias/execucoes/CT-E2E-SER-002.txt>) | — |
-| CT-E2E-SER-003 | [CT-E2E-SER-003.txt](<evidencias/execucoes/CT-E2E-SER-003.txt>) | — |
-| CT-E2E-SER-004 | [CT-E2E-SER-004.txt](<evidencias/execucoes/CT-E2E-SER-004.txt>) | [falha](<evidencias/7.4 Serviços/JUNIT-SER-004-falha.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-004-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-004-console-2.png>) |
-| CT-E2E-SER-005 | [CT-E2E-SER-005.txt](<evidencias/execucoes/CT-E2E-SER-005.txt>) | — |
-| CT-E2E-SER-006 | [CT-E2E-SER-006.txt](<evidencias/execucoes/CT-E2E-SER-006.txt>) | — |
-| CT-E2E-SER-007 | [CT-E2E-SER-007.txt](<evidencias/execucoes/CT-E2E-SER-007.txt>) | [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-007-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-007-falha-2.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-007-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-007-console-2.png>) |
-| CT-E2E-SER-008 | [CT-E2E-SER-008.txt](<evidencias/execucoes/CT-E2E-SER-008.txt>) | [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-2.png>) · [falha 3](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-3.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-008-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-008-console-2.png>) |
-| CT-E2E-SER-009 | [CT-E2E-SER-009.txt](<evidencias/execucoes/CT-E2E-SER-009.txt>) | [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-2.png>) · [falha 3](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-3.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-009-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-009-console-2.png>) |
+| CT-E2E-SER-001 | [CT-E2E-SER-001.txt](execucoes/CT-E2E-SER-001.txt) | — |
+| CT-E2E-SER-002 | [CT-E2E-SER-002.txt](execucoes/CT-E2E-SER-002.txt) | — |
+| CT-E2E-SER-003 | [CT-E2E-SER-003.txt](execucoes/CT-E2E-SER-003.txt) | — |
+| CT-E2E-SER-004 | [CT-E2E-SER-004.txt](execucoes/CT-E2E-SER-004.txt) | [falha](7.4%20Servi%C3%A7os/JUNIT-SER-004-falha.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-004-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-004-console-2.png) |
+| CT-E2E-SER-005 | [CT-E2E-SER-005.txt](execucoes/CT-E2E-SER-005.txt) | — |
+| CT-E2E-SER-006 | [CT-E2E-SER-006.txt](execucoes/CT-E2E-SER-006.txt) | — |
+| CT-E2E-SER-007 | [CT-E2E-SER-007.txt](execucoes/CT-E2E-SER-007.txt) | [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-007-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-007-falha-2.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-007-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-007-console-2.png) |
+| CT-E2E-SER-008 | [CT-E2E-SER-008.txt](execucoes/CT-E2E-SER-008.txt) | [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-2.png) · [falha 3](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-3.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-008-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-008-console-2.png) |
+| CT-E2E-SER-009 | [CT-E2E-SER-009.txt](execucoes/CT-E2E-SER-009.txt) | [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-2.png) · [falha 3](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-3.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-009-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-009-console-2.png) |
 
 ---
 
@@ -301,38 +301,38 @@ Demonstra que o mesmo cadastro funciona quando o valor é digitado com vírgula 
 
 Demonstra os atendimentos existentes, com seus IDs, datas e observações.
 
-![Figura 16 — Listagem de atendimentos](<evidencias/7.5 Atendimentos/E2E-ATE-001-listagem.png>)
+![Figura 16 — Listagem de atendimentos](7.5%20Atendimentos/E2E-ATE-001-listagem.png)
 
 #### Figura 17 — Erro no cadastro de atendimento (execução manual)
 
 Demonstra a ocorrência de `NullPointerException` durante a associação dos serviços ao atendimento e o encerramento da aplicação com `exit code 1`.
 
-![Figura 17 — Erro no cadastro de atendimento](<evidencias/7.5 Atendimentos/E2E-ATE-002-atendimento-excecao.png>)
+![Figura 17 — Erro no cadastro de atendimento](7.5%20Atendimentos/E2E-ATE-002-atendimento-excecao.png)
 
 #### Figura 18 — Atualização de atendimento (execução manual)
 
 Demonstra que cliente, funcionário e observação de um atendimento foram atualizados.
 
-![Figura 18 — Atualização de atendimento](<evidencias/7.5 Atendimentos/E2E-ATE-003-atualizacao.png>)
+![Figura 18 — Atualização de atendimento](7.5%20Atendimentos/E2E-ATE-003-atualizacao.png)
 
 #### Figura 19 — Erro de relacionamento no atendimento (execução manual)
 
 Demonstra o bloqueio provocado por uma chave estrangeira quando foi informado um relacionamento inválido.
 
-![Figura 19 — Erro de relacionamento no atendimento](<evidencias/7.5 Atendimentos/E2E-ATE-004-erro-relacionamento.png>)
+![Figura 19 — Erro de relacionamento no atendimento](7.5%20Atendimentos/E2E-ATE-004-erro-relacionamento.png)
 
 #### Execução automatizada
 
 | Caso | Registro em texto | Prints da execução automatizada |
 |---|---|---|
-| CT-E2E-ATE-001 | [CT-E2E-ATE-001.txt](<evidencias/execucoes/CT-E2E-ATE-001.txt>) | — |
-| CT-E2E-ATE-002 | [CT-E2E-ATE-002.txt](<evidencias/execucoes/CT-E2E-ATE-002.txt>) | [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-2.png>) · [falha 3](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-3.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-console-2.png>) |
-| CT-E2E-ATE-003 | [CT-E2E-ATE-003.txt](<evidencias/execucoes/CT-E2E-ATE-003.txt>) | — |
-| CT-E2E-ATE-004 | [CT-E2E-ATE-004.txt](<evidencias/execucoes/CT-E2E-ATE-004.txt>) | [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-falha-2.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-console-2.png>) |
-| CT-E2E-ATE-005 | [CT-E2E-ATE-005.txt](<evidencias/execucoes/CT-E2E-ATE-005.txt>) | — |
-| CT-E2E-ATE-006 | [CT-E2E-ATE-006.txt](<evidencias/execucoes/CT-E2E-ATE-006.txt>) | [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-falha-2.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-console-2.png>) |
-| CT-E2E-ATE-007 | [CT-E2E-ATE-007.txt](<evidencias/execucoes/CT-E2E-ATE-007.txt>) | [falha](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-falha.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-console-2.png>) |
-| CT-E2E-ATE-008 | [CT-E2E-ATE-008.txt](<evidencias/execucoes/CT-E2E-ATE-008.txt>) | [falha](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-falha.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-console-2.png>) |
+| CT-E2E-ATE-001 | [CT-E2E-ATE-001.txt](execucoes/CT-E2E-ATE-001.txt) | — |
+| CT-E2E-ATE-002 | [CT-E2E-ATE-002.txt](execucoes/CT-E2E-ATE-002.txt) | [falha 1](7.5%20Atendimentos/JUNIT-ATE-002-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-002-falha-2.png) · [falha 3](7.5%20Atendimentos/JUNIT-ATE-002-falha-3.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-002-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-002-console-2.png) |
+| CT-E2E-ATE-003 | [CT-E2E-ATE-003.txt](execucoes/CT-E2E-ATE-003.txt) | — |
+| CT-E2E-ATE-004 | [CT-E2E-ATE-004.txt](execucoes/CT-E2E-ATE-004.txt) | [falha 1](7.5%20Atendimentos/JUNIT-ATE-004-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-004-falha-2.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-004-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-004-console-2.png) |
+| CT-E2E-ATE-005 | [CT-E2E-ATE-005.txt](execucoes/CT-E2E-ATE-005.txt) | — |
+| CT-E2E-ATE-006 | [CT-E2E-ATE-006.txt](execucoes/CT-E2E-ATE-006.txt) | [falha 1](7.5%20Atendimentos/JUNIT-ATE-006-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-006-falha-2.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-006-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-006-console-2.png) |
+| CT-E2E-ATE-007 | [CT-E2E-ATE-007.txt](execucoes/CT-E2E-ATE-007.txt) | [falha](7.5%20Atendimentos/JUNIT-ATE-007-falha.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-007-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-007-console-2.png) |
+| CT-E2E-ATE-008 | [CT-E2E-ATE-008.txt](execucoes/CT-E2E-ATE-008.txt) | [falha](7.5%20Atendimentos/JUNIT-ATE-008-falha.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-008-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-008-console-2.png) |
 
 ---
 
@@ -416,15 +416,15 @@ Ao excluir ou atualizar registros relacionados, o usuário recebe mensagens do M
 - Comportamento esperado: apresentar mensagem amigável explicando o relacionamento existente.
 - Casos de teste reprovados: CT-E2E-CLI-006, CT-E2E-FUN-007, CT-E2E-SER-007, CT-E2E-ATE-004, CT-E2E-ATE-006.
 
-![DEF-E2E-001 — Mensagem técnica do banco ao excluir cliente relacionado](<evidencias/7.2 Clientes/E2E-CLI-006-restricao-exclusao.png>)
+![DEF-E2E-001 — Mensagem técnica do banco ao excluir cliente relacionado](7.2%20Clientes/E2E-CLI-006-restricao-exclusao.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-CLI-006: [falha 1](<evidencias/7.2 Clientes/JUNIT-CLI-006-falha-1.png>) · [falha 2](<evidencias/7.2 Clientes/JUNIT-CLI-006-falha-2.png>) · [console 1](<evidencias/7.2 Clientes/JUNIT-CLI-006-console-1.png>) · [console 2](<evidencias/7.2 Clientes/JUNIT-CLI-006-console-2.png>)
-- CT-E2E-FUN-007: [falha 1](<evidencias/7.3 Funcionários/JUNIT-FUN-007-falha-1.png>) · [falha 2](<evidencias/7.3 Funcionários/JUNIT-FUN-007-falha-2.png>) · [console 1](<evidencias/7.3 Funcionários/JUNIT-FUN-007-console-1.png>) · [console 2](<evidencias/7.3 Funcionários/JUNIT-FUN-007-console-2.png>)
-- CT-E2E-SER-007: [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-007-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-007-falha-2.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-007-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-007-console-2.png>)
-- CT-E2E-ATE-004: [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-falha-2.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-004-console-2.png>)
-- CT-E2E-ATE-006: [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-falha-2.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-006-console-2.png>)
+- CT-E2E-CLI-006: [falha 1](7.2%20Clientes/JUNIT-CLI-006-falha-1.png) · [falha 2](7.2%20Clientes/JUNIT-CLI-006-falha-2.png) · [console 1](7.2%20Clientes/JUNIT-CLI-006-console-1.png) · [console 2](7.2%20Clientes/JUNIT-CLI-006-console-2.png)
+- CT-E2E-FUN-007: [falha 1](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-falha-1.png) · [falha 2](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-falha-2.png) · [console 1](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-console-1.png) · [console 2](7.3%20Funcion%C3%A1rios/JUNIT-FUN-007-console-2.png)
+- CT-E2E-SER-007: [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-007-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-007-falha-2.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-007-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-007-console-2.png)
+- CT-E2E-ATE-004: [falha 1](7.5%20Atendimentos/JUNIT-ATE-004-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-004-falha-2.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-004-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-004-console-2.png)
+- CT-E2E-ATE-006: [falha 1](7.5%20Atendimentos/JUNIT-ATE-006-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-006-falha-2.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-006-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-006-console-2.png)
 
 ### DEF-E2E-002 — Sucesso informado para ID inexistente
 
@@ -436,12 +436,12 @@ Ao tentar excluir um ID que não existia, o sistema exibiu mensagem de remoção
 - Comportamento esperado: informar que nenhum registro foi encontrado.
 - Casos de teste reprovados: CT-E2E-CLI-007, CT-E2E-SER-008.
 
-![DEF-E2E-002 — Sucesso informado para ID de cliente inexistente](<evidencias/7.2 Clientes/E2E-CLI-007-exclusao-id-inexistente.png>)
+![DEF-E2E-002 — Sucesso informado para ID de cliente inexistente](7.2%20Clientes/E2E-CLI-007-exclusao-id-inexistente.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-CLI-007: [falha 1](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-1.png>) · [falha 2](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-2.png>) · [falha 3](<evidencias/7.2 Clientes/JUNIT-CLI-007-falha-3.png>) · [console 1](<evidencias/7.2 Clientes/JUNIT-CLI-007-console-1.png>) · [console 2](<evidencias/7.2 Clientes/JUNIT-CLI-007-console-2.png>)
-- CT-E2E-SER-008: [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-2.png>) · [falha 3](<evidencias/7.4 Serviços/JUNIT-SER-008-falha-3.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-008-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-008-console-2.png>)
+- CT-E2E-CLI-007: [falha 1](7.2%20Clientes/JUNIT-CLI-007-falha-1.png) · [falha 2](7.2%20Clientes/JUNIT-CLI-007-falha-2.png) · [falha 3](7.2%20Clientes/JUNIT-CLI-007-falha-3.png) · [console 1](7.2%20Clientes/JUNIT-CLI-007-console-1.png) · [console 2](7.2%20Clientes/JUNIT-CLI-007-console-2.png)
+- CT-E2E-SER-008: [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-2.png) · [falha 3](7.4%20Servi%C3%A7os/JUNIT-SER-008-falha-3.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-008-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-008-console-2.png)
 
 ### DEF-E2E-003 — Entrada numérica inválida encerra o programa
 
@@ -453,12 +453,12 @@ Ao informar texto em campo numérico, ocorre `InputMismatchException` e o proces
 - Comportamento esperado: solicitar nova entrada sem encerrar a aplicação.
 - Casos de teste reprovados: CT-E2E-SER-004, CT-E2E-ATE-007.
 
-![DEF-E2E-003 — InputMismatchException ao cadastrar serviço](<evidencias/7.4 Serviços/E2E-SER-004-valor-invalido.png>)
+![DEF-E2E-003 — InputMismatchException ao cadastrar serviço](7.4%20Servi%C3%A7os/E2E-SER-004-valor-invalido.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-SER-004: [falha](<evidencias/7.4 Serviços/JUNIT-SER-004-falha.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-004-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-004-console-2.png>)
-- CT-E2E-ATE-007: [falha](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-falha.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-007-console-2.png>)
+- CT-E2E-SER-004: [falha](7.4%20Servi%C3%A7os/JUNIT-SER-004-falha.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-004-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-004-console-2.png)
+- CT-E2E-ATE-007: [falha](7.5%20Atendimentos/JUNIT-ATE-007-falha.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-007-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-007-console-2.png)
 
 ### DEF-E2E-004 — Cadastro parcial de atendimento
 
@@ -470,11 +470,11 @@ O atendimento principal é salvo antes da falha na associação dos serviços, f
 - Comportamento esperado: desfazer a operação quando uma etapa falhar.
 - Casos de teste reprovados: CT-E2E-ATE-008.
 
-![DEF-E2E-004 — Persistência parcial do atendimento](<evidencias/7.5 Atendimentos/E2E-ATE-002-atendimento-excecao.png>)
+![DEF-E2E-004 — Persistência parcial do atendimento](7.5%20Atendimentos/E2E-ATE-002-atendimento-excecao.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-ATE-008: [falha](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-falha.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-008-console-2.png>)
+- CT-E2E-ATE-008: [falha](7.5%20Atendimentos/JUNIT-ATE-008-falha.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-008-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-008-console-2.png)
 
 ### DEF-E2E-005 — NullPointerException no cadastro de atendimento
 
@@ -486,11 +486,11 @@ O cadastro dos serviços associados gera `NullPointerException` porque o atendim
 - Comportamento esperado: preencher e validar o relacionamento antes da inserção.
 - Casos de teste reprovados: CT-E2E-ATE-002.
 
-![DEF-E2E-005 — NullPointerException na associação de serviços](<evidencias/7.5 Atendimentos/E2E-ATE-002-atendimento-excecao.png>)
+![DEF-E2E-005 — NullPointerException na associação de serviços](7.5%20Atendimentos/E2E-ATE-002-atendimento-excecao.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-ATE-002: [falha 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-1.png>) · [falha 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-2.png>) · [falha 3](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-falha-3.png>) · [console 1](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-console-1.png>) · [console 2](<evidencias/7.5 Atendimentos/JUNIT-ATE-002-console-2.png>)
+- CT-E2E-ATE-002: [falha 1](7.5%20Atendimentos/JUNIT-ATE-002-falha-1.png) · [falha 2](7.5%20Atendimentos/JUNIT-ATE-002-falha-2.png) · [falha 3](7.5%20Atendimentos/JUNIT-ATE-002-falha-3.png) · [console 1](7.5%20Atendimentos/JUNIT-ATE-002-console-1.png) · [console 2](7.5%20Atendimentos/JUNIT-ATE-002-console-2.png)
 
 ### DEF-E2E-006 — Listagem usa IDs em vez de nomes
 
@@ -501,7 +501,7 @@ A listagem de atendimentos apresenta apenas `ID Cliente` e `ID Func.`. Observado
 - Prioridade: baixa.
 - Comportamento esperado: exibir também os nomes do cliente e do funcionário.
 
-![DEF-E2E-006 — Listagem de atendimentos exibindo apenas IDs](<evidencias/7.5 Atendimentos/E2E-ATE-001-listagem.png>)
+![DEF-E2E-006 — Listagem de atendimentos exibindo apenas IDs](7.5%20Atendimentos/E2E-ATE-001-listagem.png)
 
 ### DEF-E2E-007 — Valor com ponto decimal encerra o programa (novo)
 
@@ -513,15 +513,15 @@ A tela pede `Valor (ex: 49.90)`, mas o `Scanner` usa o separador decimal do idio
 - Comportamento esperado: aceitar os dois formatos ou ajustar o texto da tela para o formato realmente aceito, sem encerrar o programa.
 - Casos de teste reprovados: CT-E2E-SER-009.
 
-![DEF-E2E-007 — Valor com ponto encerra o programa](<evidencias/7.4 Serviços/E2E-SER-009-valor-com-ponto.png>)
+![DEF-E2E-007 — Valor com ponto encerra o programa](7.4%20Servi%C3%A7os/E2E-SER-009-valor-com-ponto.png)
 
 Prints da execução automatizada:
 
-- CT-E2E-SER-009: [falha 1](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-1.png>) · [falha 2](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-2.png>) · [falha 3](<evidencias/7.4 Serviços/JUNIT-SER-009-falha-3.png>) · [console 1](<evidencias/7.4 Serviços/JUNIT-SER-009-console-1.png>) · [console 2](<evidencias/7.4 Serviços/JUNIT-SER-009-console-2.png>)
+- CT-E2E-SER-009: [falha 1](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-1.png) · [falha 2](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-2.png) · [falha 3](7.4%20Servi%C3%A7os/JUNIT-SER-009-falha-3.png) · [console 1](7.4%20Servi%C3%A7os/JUNIT-SER-009-console-1.png) · [console 2](7.4%20Servi%C3%A7os/JUNIT-SER-009-console-2.png)
 
 Prova de que o valor com vírgula funciona (execução manual):
 
-![DEF-E2E-007 — Valor com vírgula é aceito](<evidencias/7.4 Serviços/E2E-SER-009-valor-com-virgula.png>)
+![DEF-E2E-007 — Valor com vírgula é aceito](7.4%20Servi%C3%A7os/E2E-SER-009-valor-com-virgula.png)
 
 ---
 
