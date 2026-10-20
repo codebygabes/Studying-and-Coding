@@ -725,7 +725,7 @@ Como a atividade solicitou o registro das falhas, os problemas encontrados foram
 | Conteúdo | Link |
 |---|---|
 | Repositório oficial do grupo (código do sistema) | https://github.com/PedroRodriguesTeixeira/Projeto-Lava-Jato |
-| Código E2E no repositório do grupo (Maven) | https://github.com/PedroRodriguesTeixeira/Projeto-Lava-Jato/tree/master/src/test/java/e2e |
+| Caminho dos testes no projeto Maven do grupo | `src/test/java/e2e/` |
 | Cópia pessoal dos testes e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
 
 ```
