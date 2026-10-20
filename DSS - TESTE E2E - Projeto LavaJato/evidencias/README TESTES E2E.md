@@ -21,8 +21,9 @@
 | Execução inicial | Manual, em 15/09/2026, usada para levantar os casos e os defeitos |
 | Data da execução automatizada | 30/09/2026 |
 | Resultado | **36 testes: 24 aprovados e 12 reprovados** (cada reprovação corresponde a um defeito registrado na seção 9) |
-| Código dos testes | `Projeto_LavaJato_v3/test/e2e/` |
-| Repositório do grupo (código) | https://github.com/cambraiaworks/Projeto-LavaJato |
+| Código dos testes no repositório do grupo | `src/test/java/e2e/` (Maven) |
+| Cópia dos testes neste repositório pessoal | `Projeto_LavaJato_v3/test/e2e/` (estrutura antiga) |
+| Repositório oficial do grupo (código) | https://github.com/PedroRodriguesTeixeira/Projeto-Lava-Jato |
 | Testes E2E e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
 
 ### 1.1 Histórico de versões
@@ -723,10 +724,9 @@ Como a atividade solicitou o registro das falhas, os problemas encontrados foram
 
 | Conteúdo | Link |
 |---|---|
-| Repositório do grupo (código do sistema) | https://github.com/cambraiaworks/Projeto-LavaJato |
-| Testes E2E (`test/e2e`) e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
-
-<!-- Se o grupo definir um único repositório oficial, atualizar os dois links acima e o campo de links da seção 1. -->
+| Repositório oficial do grupo (código do sistema) | https://github.com/PedroRodriguesTeixeira/Projeto-Lava-Jato |
+| Código E2E no repositório do grupo (Maven) | https://github.com/PedroRodriguesTeixeira/Projeto-Lava-Jato/tree/master/src/test/java/e2e |
+| Cópia pessoal dos testes e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
 
 ```
 evidencias/
