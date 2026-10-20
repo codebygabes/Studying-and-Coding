@@ -1,6 +1,6 @@
 # Testes End-to-End — Sistema de Gerenciamento de Lava-Jato
 
-> Documento de registro dos testes E2E do sistema, executados de forma **automatizada com JUnit 5** pela interface CLI (a primeira rodada, manual, foi mantida como evidência complementar).
+> Documento de planejamento, descrição dos casos, execução e resultados dos testes E2E do sistema, executados de forma **automatizada com JUnit 5** pela interface CLI (a primeira rodada, manual, foi mantida como evidência complementar).
 
 ---
 
@@ -9,23 +9,52 @@
 | Campo | Informação |
 |---|---|
 | Projeto | Sistema de Gerenciamento de Lava-Jato |
-| Tipo de teste | End-to-End (E2E) |
+| Grupo | João Víctor Cambraia Nogueira, João Gabriel dos Santos Felipe, Maria Fernanda da Silva Nogueira, Luís Pereira Costa e Pedro Rodrigues Teixeira |
+| Responsável por esta parte (E2E) | João Gabriel dos Santos Felipe |
+| Versão do documento | 2.0 (15/10/2026) |
+| Tipo de teste | End-to-End (E2E), dinâmico, caixa-preta com conferência no banco |
 | Ferramenta | JUnit 5 (JUnit Jupiter 5.14.0), executado pelo IntelliJ IDEA |
 | Interface | CLI — o sistema é executado de verdade (`applications.Main`) e controlado pelo teclado simulado |
 | Banco de dados | MySQL |
+| Casos de teste | 36 (32 da primeira entrega e 4 novos, marcados com *(novo)*) |
 | Execução | Automatizada (36 testes) |
 | Execução inicial | Manual, em 15/09/2026, usada para levantar os casos e os defeitos |
 | Data da execução automatizada | 30/09/2026 |
 | Resultado | **36 testes: 24 aprovados e 12 reprovados** (cada reprovação corresponde a um defeito registrado na seção 9) |
 | Código dos testes | `Projeto_LavaJato_v3/test/e2e/` |
+| Repositório do grupo (código) | https://github.com/cambraiaworks/Projeto-LavaJato |
+| Testes E2E e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
+
+### 1.1 Histórico de versões
+
+| Versão | Data | Descrição |
+|---|---|---|
+| 1.0 | 15/09/2026 | Execução manual pela CLI, levantamento dos casos e registro dos defeitos. |
+| 1.1 | 30/09/2026 | Automação dos testes com JUnit 5, relatório exportado e novas evidências. |
+| 2.0 | 15/10/2026 | Descrição completa dos casos (passos, dados de entrada, saída esperada e critério de sucesso), estratégia de testes, dados-base, papéis, riscos, rastreabilidade, implementado × previsto, lições aprendidas e links do repositório. |
 
 ---
 
-## 2. Objetivo
+## 2. Objetivo e situação do sistema
+
+### 2.1 Objetivo
 
 Validar o funcionamento do sistema a partir da perspectiva do usuário, percorrendo os fluxos completos da aplicação. Os testes verificam a integração entre a CLI, os serviços, os DAOs, a conexão JDBC e o banco de dados MySQL.
 
 O foco não é analisar métodos isolados, mas verificar se o usuário consegue iniciar o sistema, autenticar-se, acessar os menus e realizar operações de cadastro, consulta, atualização e exclusão. Em cada teste, o resultado é conferido de duas formas: pelo que aparece no console e pelo que realmente ficou gravado no banco.
+
+### 2.2 O que está implementado e o que é previsão
+
+O Documento de Visão descreve o sistema completo. Para ficar claro o que existe hoje no código e o que é apenas previsão, e o que estes testes cobrem:
+
+| Item | Situação | Coberto por estes testes E2E? |
+|---|---|---|
+| Login por usuário e senha na CLI | Implementado | Sim |
+| CRUD de clientes, funcionários, serviços e atendimentos pela CLI | Implementado | Sim |
+| Persistência em MySQL (DAOs e JDBC) | Implementado | Sim (conferida por consulta direta ao banco) |
+| API HTTP em `localhost:8080` com 7 endpoints (login e listar/cadastrar clientes, funcionários e serviços) | Implementado | Não (tem plano próprio, de testes de API) |
+| CLI se comunicando com o backend pela API (seções 3.4 e 4.1 da visão) | Previsão: hoje a CLI chama os Services diretamente | Não se aplica (o E2E percorre CLI → Services → DAOs → MySQL) |
+| Endpoints de atualizar, excluir e de atendimentos na API | Previsão: ainda não existem | Não |
 
 ---
 
@@ -85,7 +114,32 @@ A aplicação realiza a conexão com o banco antes de apresentar a tela de login
 
 ---
 
-## 6. Como os testes funcionam
+## 6. Planejamento, funcionamento e casos de teste
+
+### 6.1 Estratégia de testes
+
+- **Nível e método:** teste End-to-End, dinâmico e caixa-preta: o teste enxerga apenas o que o usuário enxerga (o console). Além da tela, o estado do banco também é conferido por consulta direta ao MySQL.
+- **Técnicas:** partição de equivalência (dado válido, inválido e vazio), valor limite (ID inexistente, valor zero, texto no lugar de número) e casos de integridade referencial (excluir registro com e sem dependência).
+- **Tipos de caso:** positivos (fluxo normal), negativos (entrada inválida deve ser rejeitada), de integridade (relacionamentos entre as tabelas) e de robustez (entradas fora do esperado).
+- **Resultado esperado:** vem do Documento de Visão (RF, HU e regras de negócio da seção 4.5) e, para os textos das mensagens de validação, do comportamento dos Services, porque a visão não define as mensagens. Não vem do que o sistema faz hoje; por isso há testes que reprovam.
+- **Isolamento e repetibilidade:** o banco é restaurado a um estado conhecido antes de cada teste (seção 6.2) e o idioma do sistema é fixado em inglês, exceto no caso SER-009. Assim, uma falha não contamina os demais testes e o resultado não depende do computador.
+- **Critério de entrada:** MySQL ligado, banco `lavajato` criado pelo script `crud_lavajato.sql`, projeto compilando e JUnit 5 no classpath.
+- **Critério de aceitação de cada caso:** aprovado quando todas as verificações do caso são verdadeiras (mensagem esperada, código de saída e estado do banco); reprovado quando alguma falha ou quando ocorre exceção não tratada (ver também a seção 10).
+- **Critério de saída:** os 36 casos executados, relatório exportado, evidências salvas e todos os defeitos registrados.
+
+### 6.2 Dados-base
+
+Antes de cada teste, o banco `lavajato` é apagado e recriado com estes dados. Os casos que precisam de um registro sem dependência (CLI-005, FUN-006, SER-006 e ATE-005) criam esse registro direto no banco antes de executar o sistema.
+
+| Tabela | Registros |
+|---|---|
+| usuario | `admin` (senha do script SQL) |
+| cliente | 1 `Joao` (placa `ABC1234`, Civic, Honda); 2 `Maria` (placa `DFG5678`, Celta, Chevrolet); 3 `Pedro` (placa `HIJ9012`, HB20, Hyundai) |
+| funcionario | 1 `Carlos` (Lavador); 2 `Jose` (Lavador) |
+| servico | 1 `Lavagem Completa` (R$ 50,00); 2 `Lavagem Parcial` (R$ 35,00) |
+| atendimento | 1 (cliente 1, funcionário 1, serviço 1); 2 (cliente 2, funcionário 2, serviço 2); 3 (cliente 3, funcionário 1, serviço 2); observações `Primeiro`, `Segundo` e `Terceiro atendimento teste` |
+
+### 6.3 Como os testes funcionam
 
 As classes de teste ficam em `Projeto_LavaJato_v3/test/e2e/`:
 
@@ -108,7 +162,7 @@ Cada teste segue o mesmo ciclo:
 
 Os testes verificam o **comportamento esperado** pelo Documento de Visão. Por isso, quando o sistema não se comporta como esperado, o teste falha (fica vermelho) e esse resultado é o registro do defeito. Os 12 testes que reprovaram têm a marca `@Tag("defeito-conhecido")` no código.
 
-## 6.1 Procedimento de execução
+### 6.4 Procedimento de execução
 
 1. Iniciar o MySQL Server com o banco `lavajato` criado a partir do script `crud_lavajato.sql`. **Atenção:** os testes apagam e recriam os dados desse banco.
 2. Abrir o projeto no IntelliJ IDEA com a pasta `test` marcada como *Test Sources Root* e o JUnit 5 no classpath.
@@ -120,6 +174,115 @@ Os testes verificam o **comportamento esperado** pelo Documento de Visão. Por i
 
 > **Atenção:** prints tirados do computador pessoal do autor.
 
+### 6.5 Papéis e responsabilidades
+
+| Papel | Responsabilidades | Responsável |
+|---|---|---|
+| Líder de testes | Define escopo e critérios, acompanha prazos e consolida os resultados. | João Víctor Cambraia Nogueira |
+| Projetista de casos | Deriva os casos dos requisitos e define dados de entrada, saída esperada e critério de sucesso. | João Gabriel dos Santos Felipe |
+| Executor | Implementa e executa os testes automatizados e mantém o ambiente (MySQL e projeto). | João Gabriel dos Santos Felipe |
+| Evidências e defeitos | Guarda prints, logs e relatório, e registra os defeitos (DEF-E2E). | João Gabriel dos Santos Felipe |
+| Revisor | Confere os casos, os resultados e a coerência com os planos de testes unitários e de API. | Maria Fernanda da Silva Nogueira |
+
+### 6.6 Riscos
+
+| Risco | Impacto | Mitigação |
+|---|---|---|
+| O banco `lavajato` é compartilhado com a CLI e com a API, e o E2E o apaga e recria | Dados e resultados de outros testes podem ser perdidos | Executar o E2E em horário combinado, sem outros testes usando o banco; fazer backup se necessário |
+| O `Scanner` depende do idioma do computador (separador decimal) | O mesmo valor numérico pode funcionar em uma máquina e falhar em outra | Fixar o idioma nos testes e manter um caso próprio que reproduz o defeito (SER-009) |
+| A visão não define as mensagens de validação nem o formato da placa | Resultado esperado ambíguo em alguns casos negativos | Basear a expectativa nos Services e registrar divergências como defeito |
+| Defeitos do código podem mascarar casos seguintes | Falhas em cadeia | Cada teste restaura o banco e executa isolado |
+| O grupo pode alterar o código para corrigir defeitos | Resultados e evidências ficam desatualizados | Reexecutar a suíte e atualizar relatório, evidências e este documento |
+
+### 6.7 Rastreabilidade
+
+Todos os requisitos funcionais da visão (RF01 a RF13) têm pelo menos um caso de teste. Os casos aparecem sem o prefixo `CT-E2E-` (por exemplo, `CLI-001`; os de autenticação são `001` a `005`).
+
+| Requisito (visão) | Descrição | Casos |
+|---|---|---|
+| RF01 | Autenticação por login e senha | 002, 004, 005 |
+| RF02 | Registro de clientes | CLI-001, CLI-002 |
+| RF03 | Consulta de clientes | CLI-001 |
+| RF04 | Atualização de clientes | CLI-003, CLI-004 |
+| RF05 | Deleção de clientes | CLI-005, CLI-006, CLI-007 |
+| RF06 | Registro de serviços | SER-001, SER-002, SER-003, SER-004, SER-009 |
+| RF07 | Consulta de serviços | SER-001 |
+| RF08 | Atualização de serviços | SER-005 |
+| RF09 | Deleção de serviços | SER-006, SER-007, SER-008 |
+| RF10 | Registro de atendimentos | FUN-001, FUN-002, FUN-003, FUN-004, FUN-005, FUN-006, ATE-002, ATE-008 |
+| RF11 | Consulta de atendimentos | ATE-001 |
+| RF12 | Atualização de atendimentos | ATE-003, ATE-004 |
+| RF13 | Deleção de atendimentos | ATE-005, ATE-006, ATE-007 |
+| RNF01 | Banco de dados para persistência | 001 |
+| RNF02 | Interface inicial por linha de comando (CLI) | 001, 003 |
+
+### 6.8 Descrição dos casos de teste
+
+São 36 casos: os 32 da primeira entrega e 4 novos (CT-E2E-004, CT-E2E-005, CT-E2E-ATE-008 e CT-E2E-SER-009, marcados com *(novo)*). Cada caso tem identificador, descrição, passos com os dados de entrada, saída esperada e critério de sucesso. A linha em itálico abaixo do ID indica o requisito da visão que o caso verifica; quando o caso reprova, aparece o defeito correspondente (seção 9).
+
+**Convenções dos passos:** todos os casos partem do sistema iniciado (`applications.Main`) com o banco nos dados-base (6.2); os números entre crases são as opções digitadas nos menus; ao final de cada caso, o teste volta ao menu principal e sai (`0`).
+
+#### 6.8.1 Sistema e autenticação
+
+| ID | Descrição | Passos e dados de entrada | Saída esperada | Critério de sucesso |
+|---|---|---|---|---|
+| **CT-E2E-001**<br>*RNF01; RNF02* | Iniciar o sistema com o MySQL disponível: a conexão é feita antes da tela de login. | 1. Iniciar `applications.Main` com o MySQL ligado<br>2. Login: `admin` / `1234`<br>3. Menu principal → `0` (Sair) | Mensagem `Banco de dados conectado com sucesso!` e tela `LOGIN - LAVA-JATO`. | Passa se as duas mensagens aparecem no console. |
+| **CT-E2E-002**<br>*RF01; HU01 (cenário 1)* | Login com credenciais válidas libera o menu principal. | 1. Iniciar o sistema<br>2. Login: `admin` / `1234`<br>3. Menu principal → `0` (Sair) | `Login realizado com sucesso!` seguido do menu `SISTEMA LAVA-JATO - MENU`. | Passa se a mensagem de sucesso e o menu principal aparecem. |
+| **CT-E2E-003**<br>*RNF02* | Encerrar o sistema pelo menu principal. | 1. Iniciar o sistema<br>2. Login: `admin` / `1234`<br>3. Menu principal → `0` (Sair) | Mensagem de despedida (`Saindo do sistema`) e encerramento normal do programa. | Passa se a mensagem aparece e o código de saída do processo é 0. |
+| **CT-E2E-004**<br>*RF01; HU01 (cenário 2)* | Login com senha incorreta nega o acesso. *(novo)* | 1. Iniciar o sistema<br>2. Informar login `admin` e senha `senha-errada` | Mensagem `Login ou senha incorretos.`; o menu principal não é exibido; o programa encerra normalmente. | Passa se a mensagem aparece, o menu principal não aparece e o código de saída é 0. |
+| **CT-E2E-005**<br>*RF01; HU01* | Login e senha vazios são rejeitados. *(novo)* | 1. Iniciar o sistema<br>2. Informar login vazio e senha vazia (apenas Enter) | Mensagem `O login é obrigatório.`; o menu principal não é exibido; o programa encerra normalmente. | Passa se a mensagem aparece, o menu principal não aparece e o código de saída é 0. |
+
+#### 6.8.2 Clientes
+
+| ID | Descrição | Passos e dados de entrada | Saída esperada | Critério de sucesso |
+|---|---|---|---|---|
+| **CT-E2E-CLI-001**<br>*RF02; RF03; HU02 (cenário 1); HU03 (cenário 1)* | Cadastrar um cliente válido e consultá-lo na listagem. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `1` (Cadastrar)<br>3. Informar: nome `Ana Souza`, telefone `61999990000`, placa `QWE1R23`, modelo `Onix`, marca `Chevrolet`<br>4. Submenu → `2` (Listar) | `Cliente cadastrado!`; `Ana Souza` aparece na listagem; o registro existe no banco. | Passa se a mensagem e a listagem aparecem e há exatamente 1 cliente com a placa `QWE1R23` no banco. |
+| **CT-E2E-CLI-002**<br>*RF02; HU02* | Placa fora dos formatos aceitos é rejeitada. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `1` (Cadastrar)<br>3. Informar: nome `Ana Souza`, telefone `61999990000`, placa `123`, modelo `Onix`, marca `Chevrolet` | Mensagem `Placa inválida` (formatos `ABC1234` ou `ABC1D23`); cadastro não concluído. | Passa se a mensagem aparece, `Cliente cadastrado!` não aparece e nenhum cliente `Ana Souza` é gravado. |
+| **CT-E2E-CLI-003**<br>*RF04; HU04* | Atualização com campos obrigatórios vazios é bloqueada. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `3` (Atualizar)<br>3. Informar o ID `2`<br>4. Deixar vazios nome, telefone, placa, modelo e marca (Enter em cada campo) | Mensagem `O nome do cliente é obrigatório.`; o cliente não é alterado. | Passa se a mensagem aparece, `Cliente atualizado!` não aparece e o cliente 2 continua com o nome `Maria`. |
+| **CT-E2E-CLI-004**<br>*RF04; HU04 (cenário 1)* | Atualizar os dados de um cliente existente e conferir na consulta. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `3` (Atualizar)<br>3. ID `2`; novos dados: nome `Maria Silva`, telefone `61911112222`, placa `DFG5678`, modelo `Celta`, marca `Chevrolet`<br>4. Submenu → `2` (Listar) | `Cliente atualizado!`; a listagem mostra `Maria Silva`. | Passa se a mensagem aparece, `Maria Silva` aparece na listagem e o banco guarda o novo nome. |
+| **CT-E2E-CLI-005**<br>*RF05; HU05 (cenário 1)* | Excluir um cliente que não possui atendimento. | 1. Preparação: cliente `Sem Atendimento` (placa `ZZZ9999`) inserido direto no banco<br>2. Login: `admin` / `1234`<br>3. Menu principal → `1` (Clientes); submenu → `4` (Excluir)<br>4. Informar o ID desse cliente | `Cliente removido!`; o cliente deixa de existir. | Passa se a mensagem aparece e o cliente não existe mais no banco. |
+| **CT-E2E-CLI-006**<br>*RF05; HU05; regra 4.5 (cliente com atendimentos)*<br>→ DEF-E2E-001 | Excluir um cliente que já tem atendimento (restrição de integridade): o cliente deve ser preservado e o usuário deve receber mensagem compreensível. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `4` (Excluir)<br>3. Informar o ID `1` (cliente com atendimento) | O cliente continua no banco e o sistema explica, em linguagem simples, que ele possui atendimentos (sem texto técnico do MySQL). | Passa se o cliente 1 continua no banco e a saída não contém mensagem técnica (`Cannot delete or update`, `foreign key`, `constraint`). |
+| **CT-E2E-CLI-007**<br>*RF05; HU05*<br>→ DEF-E2E-002 | Excluir um ID que não existe. | 1. Login: `admin` / `1234`<br>2. Menu principal → `1` (Clientes); submenu → `4` (Excluir)<br>3. Informar o ID `9999` | Mensagem informando que nenhum registro foi encontrado; não pode aparecer `Cliente removido!`. | Passa se `Cliente removido!` não aparece e a saída informa que o registro não foi encontrado. |
+
+#### 6.8.3 Funcionários
+
+| ID | Descrição | Passos e dados de entrada | Saída esperada | Critério de sucesso |
+|---|---|---|---|---|
+| **CT-E2E-FUN-001**<br>*Sem RF específico (base do RF10)* | Cadastrar um funcionário válido e consultá-lo na listagem. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `1` (Cadastrar)<br>3. Informar: nome `Marcos Lima`, cargo `Lavador`, telefone `61988880000`<br>4. Submenu → `2` (Listar) | `Funcionário cadastrado!`; `Marcos Lima` aparece na listagem; o registro existe no banco. | Passa se a mensagem e a listagem aparecem e há exatamente 1 funcionário `Marcos Lima` no banco. |
+| **CT-E2E-FUN-002**<br>*Sem RF específico (base do RF10)* | Cadastro sem nome é bloqueado. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `1` (Cadastrar)<br>3. Informar: nome vazio, cargo `Lavador`, telefone `61988880000` | Mensagem `O nome do funcionário é obrigatório.` | Passa se a mensagem aparece e o banco continua com 2 funcionários. |
+| **CT-E2E-FUN-003**<br>*Sem RF específico (base do RF10)* | Cadastro sem cargo é bloqueado. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `1` (Cadastrar)<br>3. Informar: nome `Marcos Lima`, cargo vazio, telefone `61988880000` | Mensagem `O cargo do funcionário é obrigatório.` | Passa se a mensagem aparece e o banco continua com 2 funcionários. |
+| **CT-E2E-FUN-004**<br>*Sem RF específico (base do RF10)* | Cadastro sem telefone é bloqueado. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `1` (Cadastrar)<br>3. Informar: nome `Marcos Lima`, cargo `Lavador`, telefone vazio | Mensagem `O telefone do funcionário é obrigatório.` | Passa se a mensagem aparece e o banco continua com 2 funcionários. |
+| **CT-E2E-FUN-005**<br>*Sem RF específico (base do RF10)* | Atualizar os dados de um funcionário existente. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `3` (Atualizar)<br>3. ID `2`; novos dados: nome `Jose Silva`, cargo `Supervisor`, telefone `61977770000` | `Funcionário atualizado!` | Passa se a mensagem aparece e o cargo do funcionário 2 no banco é `Supervisor`. |
+| **CT-E2E-FUN-006**<br>*Sem RF específico (base do RF10)* | Excluir um funcionário que não possui atendimento. | 1. Preparação: funcionário `Sem Atendimento` inserido direto no banco<br>2. Login: `admin` / `1234`<br>3. Menu principal → `2` (Funcionários); submenu → `4` (Excluir)<br>4. Informar o ID desse funcionário | `Funcionário removido!`; o funcionário deixa de existir. | Passa se a mensagem aparece e o funcionário não existe mais no banco. |
+| **CT-E2E-FUN-007**<br>*Regra 4.5 (atendimento tem um funcionário responsável)*<br>→ DEF-E2E-001 | Excluir um funcionário que já tem atendimento: ele deve ser preservado e o usuário deve receber mensagem compreensível. | 1. Login: `admin` / `1234`<br>2. Menu principal → `2` (Funcionários); submenu → `4` (Excluir)<br>3. Informar o ID `1` (funcionário com atendimentos) | O funcionário continua no banco e o sistema explica, em linguagem simples, que ele possui atendimentos (sem texto técnico do MySQL). | Passa se o funcionário 1 continua no banco e a saída não contém mensagem técnica (`Cannot delete or update`, `foreign key`, `constraint`). |
+
+#### 6.8.4 Serviços
+
+| ID | Descrição | Passos e dados de entrada | Saída esperada | Critério de sucesso |
+|---|---|---|---|---|
+| **CT-E2E-SER-001**<br>*RF06; RF07; HU02 (cenário 2); HU03 (cenário 2)* | Cadastrar um serviço válido e consultá-lo na listagem. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `1` (Cadastrar)<br>3. Informar: nome `Polimento`, descrição `Polimento completo`, valor `99.90`<br>4. Submenu → `2` (Listar) | `Serviço cadastrado!`; `Polimento` aparece na listagem; o serviço é gravado com o valor informado. | Passa se a mensagem e a listagem aparecem e o banco guarda `Polimento` com valor 99.90. |
+| **CT-E2E-SER-002**<br>*RF06; HU02* | Cadastro sem nome é bloqueado. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `1` (Cadastrar)<br>3. Informar: nome vazio, descrição `Descricao`, valor `50.00` | Mensagem `O nome do serviço é obrigatório.` | Passa se a mensagem aparece e o banco continua com 2 serviços. |
+| **CT-E2E-SER-003**<br>*RF06; HU02* | Cadastro com valor zero é bloqueado. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `1` (Cadastrar)<br>3. Informar: nome `Teste`, descrição `Descricao`, valor `0` | Mensagem `O valor do serviço deve ser maior que zero.` | Passa se a mensagem aparece e nenhum serviço `Teste` é gravado. |
+| **CT-E2E-SER-004**<br>*RF06; HU02 (robustez da entrada)*<br>→ DEF-E2E-003 | Texto digitado no lugar de um número (valor do serviço). | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `1` (Cadastrar)<br>3. Informar: nome `Teste`, descrição `Descricao`, valor `abc` | O sistema avisa que o valor é inválido e continua funcionando, sem encerrar por exceção. | Passa se não há `Exception` na saída e o programa encerra normalmente (código de saída 0). |
+| **CT-E2E-SER-005**<br>*RF08; HU04 (cenário 2)* | Atualizar os dados de um serviço existente. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `3` (Atualizar)<br>3. ID `2`; novos dados: nome `Lavagem Parcial Plus`, descrição `Lavagem externa e cera`, valor `40.00` | `Serviço atualizado!` | Passa se a mensagem aparece e o banco guarda o valor 40.00 para o serviço 2. |
+| **CT-E2E-SER-006**<br>*RF09; HU05 (cenário 2)* | Excluir um serviço que não está vinculado a nenhum atendimento. | 1. Preparação: serviço `Sem Vinculo` (R$ 10,00) inserido direto no banco<br>2. Login: `admin` / `1234`<br>3. Menu principal → `3` (Serviços); submenu → `4` (Excluir)<br>4. Informar o ID desse serviço | `Serviço removido!`; o serviço deixa de existir. | Passa se a mensagem aparece e o serviço não existe mais no banco. |
+| **CT-E2E-SER-007**<br>*RF09; HU05; regra 4.5 (serviço em atendimentos)*<br>→ DEF-E2E-001 | Excluir um serviço vinculado a atendimento: ele deve ser preservado e o usuário deve receber mensagem compreensível. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `4` (Excluir)<br>3. Informar o ID `1` (serviço vinculado a atendimento) | O serviço continua no banco e o sistema explica, em linguagem simples, que ele está em uso (sem texto técnico do MySQL). | Passa se o serviço 1 continua no banco e a saída não contém mensagem técnica (`Cannot delete or update`, `foreign key`, `constraint`). |
+| **CT-E2E-SER-008**<br>*RF09; HU05*<br>→ DEF-E2E-002 | Excluir um ID que não existe. | 1. Login: `admin` / `1234`<br>2. Menu principal → `3` (Serviços); submenu → `4` (Excluir)<br>3. Informar o ID `9999` | Mensagem informando que nenhum registro foi encontrado; não pode aparecer `Serviço removido!`. | Passa se `Serviço removido!` não aparece e a saída informa que o registro não foi encontrado. |
+| **CT-E2E-SER-009**<br>*RF06; HU02 (cenário 2)*<br>→ DEF-E2E-007 | Digitar o valor no formato do exemplo da própria tela (`49.90`) em computador com idioma português (Brasil). *(novo)* | 1. Iniciar o sistema com idioma pt-BR (`-Duser.language=pt -Duser.country=BR`)<br>2. Login: `admin` / `1234`<br>3. Menu principal → `3` (Serviços); submenu → `1` (Cadastrar)<br>4. Informar: nome `Encerado`, descrição `Cera`, valor `49.90` | O sistema aceita o valor no formato mostrado como exemplo (ou a tela orienta o formato correto) e não encerra por exceção. | Passa se não há exceção, o código de saída é 0 e o serviço `Encerado` é gravado (1 registro). |
+
+#### 6.8.5 Atendimentos
+
+| ID | Descrição | Passos e dados de entrada | Saída esperada | Critério de sucesso |
+|---|---|---|---|---|
+| **CT-E2E-ATE-001**<br>*RF11; HU03 (cenário 3)* | Listar os atendimentos existentes. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `2` (Listar) | Os 3 atendimentos dos dados-base são exibidos (`Primeiro`, `Segundo` e `Terceiro atendimento teste`). | Passa se as três observações aparecem e o programa encerra normalmente (código de saída 0). |
+| **CT-E2E-ATE-002**<br>*RF10; HU02 (cenário 3); regra 4.5*<br>→ DEF-E2E-005 | Cadastrar um atendimento com um serviço. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `1` (Cadastrar)<br>3. Informar: ID do cliente `2`, ID do funcionário `1`, observação `Lavagem rapida`<br>4. Serviço: ID `1`, quantidade `1`; "Adicionar outro serviço?" → `N` | O atendimento e o serviço vinculado são gravados; o sistema não encerra por exceção. | Passa se não há exceção, o código de saída é 0, há 1 atendimento com a observação `Lavagem rapida` e 1 vínculo de serviço para ele. |
+| **CT-E2E-ATE-003**<br>*RF12; HU04 (cenário 3)* | Atualizar um atendimento existente. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `3` (Atualizar)<br>3. ID do atendimento `2`; novo cliente `1`; novo funcionário `2`; nova observação `Obs atualizada` | `Atendimento atualizado!` | Passa se a mensagem aparece e o banco guarda cliente 1, funcionário 2 e a observação `Obs atualizada` no atendimento 2. |
+| **CT-E2E-ATE-004**<br>*RF12; HU04; regra 4.5 (todo atendimento tem cliente e funcionário)*<br>→ DEF-E2E-001 | Atualizar um atendimento com cliente que não existe. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `3` (Atualizar)<br>3. ID `2`; cliente `999` (inexistente); funcionário `1`; observação `Obs invalida` | O atendimento não é alterado e o sistema informa, em linguagem simples, que o cliente não existe. | Passa se o atendimento 2 mantém a observação `Segundo atendimento teste` e a saída não contém mensagem técnica do banco. |
+| **CT-E2E-ATE-005**<br>*RF13; HU05 (cenário 3)* | Excluir um atendimento que não possui serviços vinculados. | 1. Preparação: atendimento (cliente 1, funcionário 1, observação `Sem servicos`) inserido direto no banco, sem serviços<br>2. Login: `admin` / `1234`<br>3. Menu principal → `4` (Atendimentos); submenu → `4` (Excluir)<br>4. Informar o ID desse atendimento | `Atendimento removido!`; o atendimento deixa de existir. | Passa se a mensagem aparece e o atendimento não existe mais no banco. |
+| **CT-E2E-ATE-006**<br>*RF13; HU05; regra 4.5 (atendimento com serviços)*<br>→ DEF-E2E-001 | Excluir um atendimento que tem serviço associado: ele deve ser preservado e o usuário deve receber mensagem compreensível. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `4` (Excluir)<br>3. Informar o ID `1` (atendimento com serviço vinculado) | O atendimento continua no banco e o sistema explica, em linguagem simples, que ele possui serviços vinculados (sem texto técnico do MySQL). | Passa se o atendimento 1 continua no banco e a saída não contém mensagem técnica (`Cannot delete or update`, `foreign key`, `constraint`). |
+| **CT-E2E-ATE-007**<br>*RF13; HU05 (robustez da entrada)*<br>→ DEF-E2E-003 | Texto digitado no lugar do ID do atendimento. | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `4` (Excluir)<br>3. Digitar `abc` no lugar do ID | O sistema avisa que o ID é inválido e continua funcionando, sem encerrar por exceção. | Passa se não há `Exception` na saída e o programa encerra normalmente (código de saída 0). |
+| **CT-E2E-ATE-008**<br>*RF10; regra 4.5 (um atendimento pode ter vários serviços); integridade*<br>→ DEF-E2E-004 | O cadastro de atendimento não pode deixar registro parcial no banco. *(novo)* | 1. Login: `admin` / `1234`<br>2. Menu principal → `4` (Atendimentos); submenu → `1` (Cadastrar)<br>3. Informar: ID do cliente `2`, ID do funcionário `1`, observação `Lavagem rapida`<br>4. Serviço: ID `1`, quantidade `1`; "Adicionar outro serviço?" → `N` | Ou o atendimento é gravado junto com seus serviços, ou nada é gravado. | Passa se o número de atendimentos com a observação `Lavagem rapida` for igual ao número de vínculos de serviço desses atendimentos. |
+
 ---
 
 ## 7. Evidências das execuções
@@ -127,7 +290,7 @@ Os testes verificam o **comportamento esperado** pelo Documento de Visão. Por i
 ### 7.0 Visão geral da execução automatizada
 
 - **Relatório exportado do IntelliJ:** [relatorio-junit.html](relatorio-junit.html) (36 testes, 12 reprovados e 24 aprovados, em cerca de 28 s). Abra o arquivo no navegador.
-- **Árvore de resultados:** [parte 1](JUNIT-arvore-completa-1.png) e [parte 2](JUNIT-arvore-completa-2.png).
+- **Resultado completo em imagens** (capturas do relatório, do primeiro ao último teste, em 4 partes): [parte 1](JUNIT-arvore-completa-1.png), [parte 2](JUNIT-arvore-completa-2.png), [parte 3](JUNIT-arvore-completa-3.png) e [parte 4](JUNIT-arvore-completa-4.png).
 - **Registro em texto de todos os casos:** pasta [`evidencias/execucoes/`](execucoes/), com um arquivo por caso.
 
 As evidências estão salvas em subpastas dentro de `evidencias`, uma por seção (7.1 a 7.5). Os arquivos que começam com `E2E-` são prints da execução manual de 15/09/2026; os que começam com `JUNIT-` são da execução automatizada de 30/09/2026.
@@ -339,7 +502,7 @@ Demonstra o bloqueio provocado por uma chave estrangeira quando foi informado um
 
 ## 8. Resultados dos testes
 
-Resumo: **36 testes — 24 aprovados e 12 reprovados.** Reprovado significa que o sistema não se comportou como esperado (ver critérios na seção 10); cada reprovação está ligada a um defeito da seção 9.
+Resumo: **36 testes — 24 aprovados e 12 reprovados.** Os passos, os dados de entrada, a saída esperada e o critério de sucesso de cada caso estão na seção 6.8. Reprovado significa que o sistema não se comportou como esperado (ver critérios na seção 10); cada reprovação está ligada a um defeito da seção 9.
 
 ### 8.1 Sistema e autenticação
 
@@ -544,13 +707,31 @@ Como a atividade solicitou o registro das falhas, os problemas encontrados foram
 
 ---
 
-## 12. Organização das evidências
+## 12. Lições aprendidas
+
+1. **JUnit também serve para E2E de uma aplicação de linha de comando.** Executar o sistema em um processo separado e alimentar o teclado pela entrada padrão deu um teste de ponta a ponta de verdade (CLI, Services, DAOs e MySQL), sem precisar de uma ferramenta de interface web.
+2. **Dados conhecidos tornam o teste confiável.** Restaurar o banco antes de cada teste deixou os resultados repetíveis e independentes entre si. O custo é que o banco não pode ser usado por outros testes ao mesmo tempo.
+3. **É preciso conferir o banco, e não só a tela.** O sistema informou "removido" para um ID que não existe (DEF-E2E-002) e gravou um atendimento sem serviços (DEF-E2E-004). Esses problemas só aparecem quando se consulta o que foi realmente gravado.
+4. **O ambiente de execução influencia o resultado.** O separador decimal do idioma do computador (DEF-E2E-007) só apareceu ao rodar o sistema na máquina real. Por isso os testes fixam o idioma e há um caso próprio que reproduz o defeito.
+5. **Teste reprovado é resultado, não erro do teste.** 12 dos 36 casos reprovaram por defeitos reais. Manter esses testes vermelhos documenta o problema e os transforma em teste de regressão: quando o defeito for corrigido, o teste passa a aprovar.
+6. **Um caso de teste precisa poder ser repetido por outra pessoa.** A primeira versão trazia só título e resultado. Com passos, dados de entrada, saída esperada e critério de sucesso, qualquer integrante consegue reproduzir e conferir o resultado.
+7. **Definir o resultado esperado antes de executar evita aceitar o comportamento errado.** Os resultados esperados vieram da visão e das regras de negócio, e não do que o sistema fazia, e foi isso que permitiu enxergar os defeitos.
+
+---
+
+## 13. Repositório e organização das evidências
+
+| Conteúdo | Link |
+|---|---|
+| Repositório do grupo (código do sistema) | https://github.com/cambraiaworks/Projeto-LavaJato |
+| Testes E2E (`test/e2e`) e evidências | https://github.com/codebygabes/Studying-and-Coding/tree/main/DSS%20-%20TESTE%20E2E%20-%20Projeto%20LavaJato |
+
+<!-- Se o grupo definir um único repositório oficial, atualizar os dois links acima e o campo de links da seção 1. -->
 
 ```
 evidencias/
 ├── relatorio-junit.html
-├── JUNIT-arvore-completa-1.png
-├── JUNIT-arvore-completa-2.png
+├── JUNIT-arvore-completa-1.png ... JUNIT-arvore-completa-4.png
 ├── execucoes/                 (36 arquivos .txt, um por caso: CT-E2E-xxx.txt)
 ├── 7.1 Sistema e autenticação/
 ├── 7.2 Clientes/
