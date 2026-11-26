@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro – Nexvion Tech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="pagina-auth">
+
+  <header class="header header-simples">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <div>
+          <span class="logo-nome">Nexvion Tech</span>
+          <p class="logo-slogan">Tecnologia de ponta para você</p>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2 class="auth-titulo">Criar nova conta</h2>
+
+      <div class="erro-box escondido" id="erroBox"></div>
+
+      <form id="formCadastro" class="auth-form" novalidate>
+        <div class="campo-grupo">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+          <span class="campo-erro" id="erroNome"></span>
+        </div>
+        <div class="campo-grupo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+          <span class="campo-erro" id="erroEmail"></span>
+        </div>
+        <div class="campo-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required />
+          <span class="campo-erro" id="erroSenha"></span>
+        </div>
+        <div class="campo-grupo">
+          <label for="confirmar">Confirmar senha</label>
+          <input type="password" id="confirmar" name="confirmar" placeholder="Repita a senha" required />
+          <span class="campo-erro" id="erroConfirmar"></span>
+        </div>
+        <button type="submit" class="btn-auth" id="btnCadastro">Criar Conta</button>
+      </form>
+
+      <p class="auth-link">Já tem conta? <a href="login.html">Fazer login</a></p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Nexvion Tech – Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/produtos.js"></script>
+  <script>
+    if (estaLogado()) {
+      window.location.href = 'index.html'
+    }
+
+    document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+      e.preventDefault()
+
+      const nome = document.getElementById('nome').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const senha = document.getElementById('senha').value
+      const confirmar = document.getElementById('confirmar').value
+
+      const campos = ['erroNome', 'erroEmail', 'erroSenha', 'erroConfirmar']
+      for (let i = 0; i < campos.length; i++) {
+        document.getElementById(campos[i]).textContent = ''
+      }
+      document.getElementById('erroBox').classList.add('escondido')
+
+      let valido = true
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (!nome) {
+        document.getElementById('erroNome').textContent = 'Nome é obrigatório.'
+        valido = false
+      }
+      if (!email || !emailRegex.test(email)) {
+        document.getElementById('erroEmail').textContent = 'E-mail inválido.'
+        valido = false
+      }
+      if (!senha || senha.length < 6) {
+        document.getElementById('erroSenha').textContent = 'Senha deve ter no mínimo 6 caracteres.'
+        valido = false
+      }
+      if (senha !== confirmar) {
+        document.getElementById('erroConfirmar').textContent = 'As senhas não coincidem.'
+        valido = false
+      }
+      if (!valido) return
+
+      const btn = document.getElementById('btnCadastro')
+      btn.disabled = true
+      btn.textContent = 'Criando conta...'
+
+      try {
+        const resp = await fetch(API_URL + '/auth/cadastro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, email, senha, confirmar_senha: confirmar })
+        })
+        const data = await resp.json()
+        if (!resp.ok) {
+          document.getElementById('erroBox').textContent = data.erro || 'Erro ao realizar cadastro.'
+          document.getElementById('erroBox').classList.remove('escondido')
+          btn.disabled = false
+          btn.textContent = 'Criar Conta'
+          return
+        }
+        window.location.href = 'login.html?cadastro=ok'
+      } catch (err) {
+        document.getElementById('erroBox').textContent = 'Falha na comunicação com o servidor.'
+        document.getElementById('erroBox').classList.remove('escondido')
+        btn.disabled = false
+        btn.textContent = 'Criar Conta'
+      }
+    })
+</script>
+</body>
+</html>

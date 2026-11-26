@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Pedidos – Nexvion Tech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header header-simples">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <div>
+          <span class="logo-nome">Nexvion Tech</span>
+          <p class="logo-slogan">Tecnologia de ponta para você</p>
+        </div>
+      </a>
+      <nav class="nav-direita">
+        <div id="navAuth" class="nav-auth"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main pedidos-main">
+    <div class="pagina-titulo">
+      <h1>Meus Pedidos</h1>
+      <a href="index.html" class="btn-voltar">← Voltar à Loja</a>
+    </div>
+
+    <div id="listaPedidos">
+      <div class="loading-produtos">Carregando pedidos...</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Nexvion Tech – Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/produtos.js"></script>
+  <script>
+    if (!estaLogado()) {
+      window.location.href = 'login.html'
+    }
+
+    function atualizarNav() {
+      const navAuth = document.getElementById('navAuth')
+      if (!navAuth) return
+      const u = getUsuario()
+      let html = '<span class="nav-usuario">👤 ' + escaparHTML(u.nome.split(' ')[0]) + '</span>'
+      if (eAdmin()) {
+        html += '<a href="admin.html" class="nav-link nav-admin">Painel Admin</a>'
+      }
+      html += '<button class="btn-logout" id="btnLogout">Sair</button>'
+      navAuth.innerHTML = html
+      document.getElementById('btnLogout').addEventListener('click', sair)
+    }
+
+    function formatarMoeda(valor) {
+      return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    }
+
+    function formatarData(str) {
+      const d = new Date(str)
+      return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    }
+
+    async function carregarPedidos() {
+      const container = document.getElementById('listaPedidos')
+      try {
+        const resp = await fetchComAuth(API_URL + '/pedidos')
+        const data = await resp.json()
+
+        if (!resp.ok) {
+          container.innerHTML = '<p class="erro-msg">' + (data.erro || 'Erro ao carregar pedidos.') + '</p>'
+          return
+        }
+
+        if (data.length === 0) {
+          container.innerHTML = '<div class="sem-pedidos"><p>Você ainda não realizou nenhum pedido.</p><a href="index.html" class="btn-ir-loja">Ir para a loja</a></div>'
+          return
+        }
+
+        container.innerHTML = ''
+
+        for (let i = 0; i < data.length; i++) {
+          const pedido = data[i]
+          const card = document.createElement('div')
+          card.className = 'pedido-card'
+
+          let itensHtml = ''
+          for (let j = 0; j < pedido.itens.length; j++) {
+            const it = pedido.itens[j]
+            itensHtml +=
+              '<tr>' +
+                '<td>' + escaparHTML(it.nome_produto) + '</td>' +
+                '<td class="text-center">' + it.quantidade + '</td>' +
+                '<td class="text-right">' + formatarMoeda(it.preco_unitario) + '</td>' +
+                '<td class="text-right">' + formatarMoeda(it.subtotal) + '</td>' +
+              '</tr>'
+          }
+
+          card.innerHTML =
+            '<div class="pedido-header" onclick="togglePedido(this)">' +
+              '<div class="pedido-info">' +
+                '<span class="pedido-id">Pedido #' + pedido.id + '</span>' +
+                '<span class="pedido-data">' + formatarData(pedido.criado_em) + '</span>' +
+              '</div>' +
+              '<div class="pedido-valores">' +
+                '<span class="pedido-total">' + formatarMoeda(pedido.total) + '</span>' +
+                '<span class="pedido-status status-concluido">' + escaparHTML(pedido.status) + '</span>' +
+                '<span class="pedido-toggle">▼</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="pedido-detalhes escondido">' +
+              '<table class="pedido-tabela">' +
+                '<thead><tr><th>Produto</th><th class="text-center">Qtd</th><th class="text-right">Unitário</th><th class="text-right">Subtotal</th></tr></thead>' +
+                '<tbody>' + itensHtml + '</tbody>' +
+              '</table>' +
+              '<div class="pedido-resumo">' +
+                '<span>Subtotal: <strong>' + formatarMoeda(pedido.subtotal) + '</strong></span>' +
+                '<span class="desconto-txt">Desconto: <strong>− ' + formatarMoeda(pedido.desconto) + '</strong></span>' +
+                '<span class="total-txt">Total: <strong>' + formatarMoeda(pedido.total) + '</strong></span>' +
+              '</div>' +
+            '</div>'
+
+          container.appendChild(card)
+        }
+      } catch (err) {
+        container.innerHTML = '<p class="erro-msg">Falha na comunicação com o servidor.</p>'
+      }
+    }
+
+    function togglePedido(header) {
+      const detalhes = header.nextElementSibling
+      const toggle = header.querySelector('.pedido-toggle')
+      if (detalhes.classList.contains('escondido')) {
+        detalhes.classList.remove('escondido')
+        toggle.textContent = '▲'
+      } else {
+        detalhes.classList.add('escondido')
+        toggle.textContent = '▼'
+      }
+    }
+
+    atualizarNav()
+    carregarPedidos()
+</script>
+</body>
+</html>

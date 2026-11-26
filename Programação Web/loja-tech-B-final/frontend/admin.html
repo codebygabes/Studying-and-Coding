@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin – Nexvion Tech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="header header-simples">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <div>
+          <span class="logo-nome">Nexvion Tech</span>
+          <p class="logo-slogan">Painel Administrativo</p>
+        </div>
+      </a>
+      <nav class="nav-direita">
+        <a href="index.html" class="nav-link">Ir à Loja</a>
+        <div id="navAuth" class="nav-auth"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main admin-main">
+    <h1 class="admin-titulo">Painel Administrativo</h1>
+
+    <div class="dashboard-metricas" id="metricas">
+      <div class="metrica-card"><span class="metrica-valor" id="mProdutos">–</span><span class="metrica-label">Produtos ativos</span></div>
+      <div class="metrica-card aviso"><span class="metrica-valor" id="mBaixo">–</span><span class="metrica-label">Estoque baixo</span></div>
+      <div class="metrica-card perigo"><span class="metrica-valor" id="mZero">–</span><span class="metrica-label">Sem estoque</span></div>
+      <div class="metrica-card info"><span class="metrica-valor" id="mPedidos">–</span><span class="metrica-label">Pedidos</span></div>
+      <div class="metrica-card info"><span class="metrica-valor" id="mClientes">–</span><span class="metrica-label">Clientes</span></div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="tab-btn ativo" data-tab="produtos">Produtos</button>
+      <button class="tab-btn" data-tab="pedidos">Pedidos</button>
+      <button class="tab-btn" data-tab="estoque">Estoque</button>
+    </div>
+
+    <div id="tab-produtos" class="tab-conteudo">
+      <div class="tab-header">
+        <h2>Gerenciar Produtos</h2>
+        <button class="btn-primario" id="btnNovoProduto">+ Novo Produto</button>
+      </div>
+
+      <div class="form-produto escondido" id="formProdutoContainer">
+        <h3 id="formProdutoTitulo">Novo Produto</h3>
+        <div class="erro-box escondido" id="erroProduto"></div>
+        <div class="sucesso-box escondido" id="sucessoProduto"></div>
+        <form id="formProduto" class="admin-form">
+          <input type="hidden" id="produtoId" />
+          <div class="form-row">
+            <div class="campo-grupo">
+              <label>Nome *</label>
+              <input type="text" id="pNome" required />
+            </div>
+            <div class="campo-grupo">
+              <label>Categoria *</label>
+              <select id="pCategoria" required></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="campo-grupo">
+              <label>Preço (R$) *</label>
+              <input type="number" id="pPreco" step="0.01" min="0" required />
+            </div>
+            <div class="campo-grupo" id="campoEstoqueInicial">
+              <label>Estoque inicial</label>
+              <input type="number" id="pEstoque" min="0" value="0" />
+            </div>
+          </div>
+          <div class="campo-grupo">
+            <label>URL da Imagem</label>
+            <input type="text" id="pImagem" placeholder="https://..." />
+          </div>
+          <div class="form-acoes">
+            <button type="button" class="btn-secundario" id="btnCancelarProduto">Cancelar</button>
+            <button type="submit" class="btn-primario" id="btnSalvarProduto">Salvar Produto</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="tabelaProdutos"></div>
+    </div>
+
+    <div id="tab-pedidos" class="tab-conteudo escondido">
+      <h2>Pedidos dos Clientes</h2>
+      <div id="tabelaPedidos"></div>
+    </div>
+
+    <div id="tab-estoque" class="tab-conteudo escondido">
+      <div class="estoque-colunas">
+        <div class="estoque-form-col">
+          <h2>Movimentação de Estoque</h2>
+          <div class="erro-box escondido" id="erroEstoque"></div>
+          <div class="sucesso-box escondido" id="sucessoEstoque"></div>
+          <form id="formEstoque" class="admin-form">
+            <div class="campo-grupo">
+              <label>Tipo de movimentação *</label>
+              <select id="tipoMov">
+                <option value="entrada">Entrada (reposição)</option>
+                <option value="saida">Saída administrativa</option>
+                <option value="ajuste">Ajuste de inventário</option>
+              </select>
+            </div>
+            <div class="campo-grupo">
+              <label>Produto *</label>
+              <select id="produtoMov"></select>
+            </div>
+            <div class="campo-grupo">
+              <label id="labelQtd">Quantidade *</label>
+              <input type="number" id="qtdMov" min="0" required />
+            </div>
+            <div class="campo-grupo">
+              <label>Motivo <span id="motivoObrigatorio"></span></label>
+              <input type="text" id="motivoMov" placeholder="Descreva o motivo" />
+            </div>
+            <button type="submit" class="btn-primario" style="width:100%">Registrar Movimentação</button>
+          </form>
+        </div>
+        <div class="estoque-hist-col">
+          <h2>Histórico de Movimentações</h2>
+          <div id="tabelaHistorico"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Nexvion Tech – Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/produtos.js"></script>
+  <script>
+    if (!estaLogado() || !eAdmin()) {
+      window.location.href = 'index.html'
+    }
+
+    let todosProdutos = []
+    let editandoId = null
+
+    function atualizarNav() {
+      const navAuth = document.getElementById('navAuth')
+      const u = getUsuario()
+      navAuth.innerHTML = '<span class="nav-usuario">👤 ' + escaparHTML(u.nome.split(' ')[0]) + '</span><button class="btn-logout" id="btnLogout">Sair</button>'
+      document.getElementById('btnLogout').addEventListener('click', sair)
+    }
+
+    function formatarMoeda(v) {
+      return Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    }
+
+    function formatarData(str) {
+      const d = new Date(str)
+      return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    }
+
+    async function carregarDashboard() {
+      try {
+        const resp = await fetchComAuth(API_URL + '/estoque/dashboard')
+        const d = await resp.json()
+        if (resp.ok) {
+          document.getElementById('mProdutos').textContent = d.total_produtos
+          document.getElementById('mBaixo').textContent = d.estoque_baixo
+          document.getElementById('mZero').textContent = d.sem_estoque
+          document.getElementById('mPedidos').textContent = d.total_pedidos
+          document.getElementById('mClientes').textContent = d.total_clientes
+        }
+      } catch (e) {
+        mostrarToastAdmin('Falha ao consultar dados. Confira a conexão e tente novamente.', 'erro')
+      }
+    }
+
+    async function carregarCategorias() {
+      try {
+        const resp = await fetch(API_URL + '/produtos/categorias')
+        const cats = await resp.json()
+        const sel = document.getElementById('pCategoria')
+        sel.innerHTML = ''
+        for (let i = 0; i < cats.length; i++) {
+          const opt = document.createElement('option')
+          opt.value = cats[i].id
+          opt.textContent = cats[i].nome
+          sel.appendChild(opt)
+        }
+      } catch (e) {
+        mostrarToastAdmin('Falha ao consultar dados. Confira a conexão e tente novamente.', 'erro')
+      }
+    }
+
+    async function carregarProdutosAdmin() {
+      try {
+        const resp = await fetchComAuth(API_URL + '/produtos/todos')
+        const data = await resp.json()
+        if (!resp.ok) throw new Error(data.erro || 'Falha ao consultar dados.')
+        todosProdutos = data
+
+        const selMov = document.getElementById('produtoMov')
+        selMov.innerHTML = ''
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].ativo) {
+            const opt = document.createElement('option')
+            opt.value = data[i].id
+            opt.textContent = data[i].nome + ' (estoque: ' + data[i].estoque + ')'
+            selMov.appendChild(opt)
+          }
+        }
+
+        const container = document.getElementById('tabelaProdutos')
+        if (data.length === 0) {
+          container.innerHTML = '<p class="sem-dados">Nenhum produto cadastrado.</p>'
+          return
+        }
+
+        let html = '<table class="admin-tabela"><thead><tr><th>Código</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th></tr></thead><tbody>'
+        for (let i = 0; i < data.length; i++) {
+          const p = data[i]
+          const statusTxt = p.ativo ? '<span class="badge-ativo">Ativo</span>' : '<span class="badge-inativo">Inativo</span>'
+          const estoqueClass = p.estoque === 0 ? 'estoque-zero' : (p.estoque <= 3 ? 'estoque-baixo-txt' : '')
+          html += '<tr' + (p.ativo ? '' : ' class="linha-inativa"') + '>'
+          html += '<td>' + p.codigo + '</td>'
+          html += '<td>' + escaparHTML(p.nome) + '</td>'
+          html += '<td>' + escaparHTML(p.categoria) + '</td>'
+          html += '<td>' + formatarMoeda(p.preco) + '</td>'
+          html += '<td class="' + estoqueClass + '">' + p.estoque + '</td>'
+          html += '<td>' + statusTxt + '</td>'
+          html += '<td class="acoes-col">'
+          if (p.ativo) {
+            html += '<button class="btn-editar" onclick="editarProduto(' + p.id + ')">Editar</button>'
+            html += '<button class="btn-desativar" onclick="desativarProduto(' + p.id + ')">Desativar</button>'
+          }
+          html += '</td></tr>'
+        }
+        html += '</tbody></table>'
+        container.innerHTML = html
+      } catch (e) {
+        document.getElementById('tabelaProdutos').innerHTML = '<p class="erro-msg">Erro ao carregar produtos.</p>'
+      }
+    }
+
+    async function carregarPedidosAdmin() {
+      try {
+        const resp = await fetchComAuth(API_URL + '/pedidos')
+        const data = await resp.json()
+        if (!resp.ok) throw new Error(data.erro || 'Falha ao consultar dados.')
+
+        const container = document.getElementById('tabelaPedidos')
+        if (data.length === 0) {
+          container.innerHTML = '<p class="sem-dados">Nenhum pedido registrado.</p>'
+          return
+        }
+
+        let html = '<table class="admin-tabela"><thead><tr><th>#</th><th>Cliente</th><th>Data</th><th>Itens</th><th>Subtotal</th><th>Desconto</th><th>Total</th><th>Status</th></tr></thead><tbody>'
+        for (let i = 0; i < data.length; i++) {
+          const p = data[i]
+          const qtdItens = p.itens ? p.itens.reduce(function(acc, it) { return acc + it.quantidade }, 0) : 0
+          html += '<tr>'
+          html += '<td>#' + p.id + '</td>'
+          html += '<td>' + escaparHTML((p.cliente_nome || 'N/A')) + '<br><small>' + escaparHTML((p.cliente_email || '')) + '</small></td>'
+          html += '<td>' + formatarData(p.criado_em) + '</td>'
+          html += '<td>' + qtdItens + ' un.'
+          for (const item of p.itens || []) {
+            const nomeSeguro = document.createElement('span')
+            nomeSeguro.textContent = item.nome_produto
+            html += '<br>' + nomeSeguro.innerHTML + ' × ' + item.quantidade + ' — ' + formatarMoeda(item.preco_unitario)
+          }
+          html += '</td>'
+          html += '<td>' + formatarMoeda(p.subtotal) + '</td>'
+          html += '<td class="desconto-txt">− ' + formatarMoeda(p.desconto) + '</td>'
+          html += '<td><strong>' + formatarMoeda(p.total) + '</strong></td>'
+          html += '<td><span class="badge-ativo">' + p.status + '</span></td>'
+          html += '</tr>'
+        }
+        html += '</tbody></table>'
+        container.innerHTML = html
+      } catch (e) {
+        document.getElementById('tabelaPedidos').innerHTML = '<p class="erro-msg">Erro ao carregar pedidos.</p>'
+      }
+    }
+
+    async function carregarHistorico() {
+      try {
+        const resp = await fetchComAuth(API_URL + '/estoque/historico')
+        const data = await resp.json()
+        if (!resp.ok) throw new Error(data.erro || 'Falha ao consultar dados.')
+
+        const container = document.getElementById('tabelaHistorico')
+        if (data.length === 0) {
+          container.innerHTML = '<p class="sem-dados">Nenhuma movimentação registrada.</p>'
+          return
+        }
+
+        let html = '<table class="admin-tabela admin-tabela-sm"><thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Qtd</th><th>Saldo</th><th>Motivo</th><th>Usuário</th></tr></thead><tbody>'
+        for (let i = 0; i < data.length; i++) {
+          const m = data[i]
+          const tipoCls = m.tipo === 'entrada' ? 'badge-ativo' : (m.tipo === 'saida' ? 'badge-inativo' : 'badge-ajuste')
+          html += '<tr>'
+          html += '<td>' + formatarData(m.criado_em) + '</td>'
+          html += '<td>' + escaparHTML(m.produto_nome) + '</td>'
+          html += '<td><span class="' + tipoCls + '">' + m.tipo + '</span></td>'
+          html += '<td>' + m.quantidade + '</td>'
+          html += '<td>' + m.saldo_resultante + '</td>'
+          html += '<td>' + escaparHTML((m.motivo || '–')) + '</td>'
+          html += '<td>' + escaparHTML((m.usuario_nome || '–')) + '</td>'
+          html += '</tr>'
+        }
+        html += '</tbody></table>'
+        container.innerHTML = html
+      } catch (e) {
+        mostrarToastAdmin('Falha ao consultar dados. Confira a conexão e tente novamente.', 'erro')
+      }
+    }
+
+    function editarProduto(id) {
+      editandoId = id
+      const p = todosProdutos.find(function(x) { return x.id === id })
+      if (!p) return
+      document.getElementById('formProdutoTitulo').textContent = 'Editar Produto'
+      document.getElementById('produtoId').value = p.id
+      document.getElementById('pNome').value = p.nome
+      document.getElementById('pCategoria').value = p.categoria_id
+      document.getElementById('pPreco').value = p.preco
+      document.getElementById('pImagem').value = p.imagem_url || ''
+      document.getElementById('campoEstoqueInicial').style.display = 'none'
+      document.getElementById('formProdutoContainer').classList.remove('escondido')
+      document.getElementById('formProdutoContainer').scrollIntoView({ behavior: 'smooth' })
+    }
+
+    async function desativarProduto(id) {
+      const nome = todosProdutos.find(produto => produto.id === id).nome
+      if (!confirm('Deseja desativar o produto "' + nome + '"?')) return
+      try {
+        const resp = await fetchComAuth(API_URL + '/produtos/' + id, { method: 'DELETE' })
+        const data = await resp.json()
+        if (resp.ok) {
+          carregarProdutosAdmin()
+          carregarDashboard()
+          mostrarToastAdmin(data.mensagem, 'sucesso')
+        } else {
+          mostrarToastAdmin(data.erro || 'Erro ao desativar.', 'erro')
+        }
+      } catch (e) {
+        mostrarToastAdmin('Falha na comunicação.', 'erro')
+      }
+    }
+
+    document.getElementById('btnNovoProduto').addEventListener('click', function() {
+      editandoId = null
+      document.getElementById('formProdutoTitulo').textContent = 'Novo Produto'
+      document.getElementById('formProduto').reset()
+      document.getElementById('produtoId').value = ''
+      document.getElementById('campoEstoqueInicial').style.display = ''
+      document.getElementById('erroProduto').classList.add('escondido')
+      document.getElementById('sucessoProduto').classList.add('escondido')
+      document.getElementById('formProdutoContainer').classList.remove('escondido')
+      document.getElementById('formProdutoContainer').scrollIntoView({ behavior: 'smooth' })
+    })
+
+    document.getElementById('btnCancelarProduto').addEventListener('click', function() {
+      document.getElementById('formProdutoContainer').classList.add('escondido')
+      editandoId = null
+    })
+
+    document.getElementById('formProduto').addEventListener('submit', async function(e) {
+      e.preventDefault()
+      const nome = document.getElementById('pNome').value.trim()
+      const categoria_id = document.getElementById('pCategoria').value
+      const preco = document.getElementById('pPreco').value
+      const estoque = document.getElementById('pEstoque').value
+      const imagem_url = document.getElementById('pImagem').value.trim()
+
+      document.getElementById('erroProduto').classList.add('escondido')
+      document.getElementById('sucessoProduto').classList.add('escondido')
+
+      if (!nome || !categoria_id || !preco) {
+        document.getElementById('erroProduto').textContent = 'Preencha todos os campos obrigatórios.'
+        document.getElementById('erroProduto').classList.remove('escondido')
+        return
+      }
+
+      const btn = document.getElementById('btnSalvarProduto')
+      btn.disabled = true
+      btn.textContent = 'Salvando...'
+
+      try {
+        let resp
+        if (editandoId) {
+          resp = await fetchComAuth(API_URL + '/produtos/' + editandoId, {
+            method: 'PUT',
+            body: JSON.stringify({ nome, categoria_id: Number(categoria_id), preco: Number(preco), imagem_url })
+          })
+        } else {
+          resp = await fetchComAuth(API_URL + '/produtos', {
+            method: 'POST',
+            body: JSON.stringify({ nome, categoria_id: Number(categoria_id), preco: Number(preco), estoque: Number(estoque || 0), imagem_url })
+          })
+        }
+        const data = await resp.json()
+        if (resp.ok) {
+          document.getElementById('sucessoProduto').textContent = data.mensagem
+          document.getElementById('sucessoProduto').classList.remove('escondido')
+          carregarProdutosAdmin()
+          carregarDashboard()
+          setTimeout(function() { document.getElementById('formProdutoContainer').classList.add('escondido') }, 1500)
+        } else {
+          document.getElementById('erroProduto').textContent = data.erro || 'Erro ao salvar produto.'
+          document.getElementById('erroProduto').classList.remove('escondido')
+        }
+      } catch (err) {
+        document.getElementById('erroProduto').textContent = 'Falha na comunicação com o servidor.'
+        document.getElementById('erroProduto').classList.remove('escondido')
+      }
+
+      btn.disabled = false
+      btn.textContent = 'Salvar Produto'
+    })
+
+    document.getElementById('tipoMov').addEventListener('change', function() {
+      const tipo = this.value
+      const motivoOb = document.getElementById('motivoObrigatorio')
+      motivoOb.textContent = (tipo === 'saida' || tipo === 'ajuste') ? '*' : ''
+      const labelQtd = document.getElementById('labelQtd')
+      labelQtd.textContent = tipo === 'ajuste' ? 'Nova quantidade em estoque *' : 'Quantidade *'
+    })
+
+    document.getElementById('formEstoque').addEventListener('submit', async function(e) {
+      e.preventDefault()
+      const tipo = document.getElementById('tipoMov').value
+      const produto_id = document.getElementById('produtoMov').value
+      const quantidade = document.getElementById('qtdMov').value
+      const motivo = document.getElementById('motivoMov').value.trim()
+
+      document.getElementById('erroEstoque').classList.add('escondido')
+      document.getElementById('sucessoEstoque').classList.add('escondido')
+
+      if (!produto_id || !quantidade) {
+        document.getElementById('erroEstoque').textContent = 'Produto e quantidade são obrigatórios.'
+        document.getElementById('erroEstoque').classList.remove('escondido')
+        return
+      }
+      if ((tipo === 'saida' || tipo === 'ajuste') && !motivo) {
+        document.getElementById('erroEstoque').textContent = 'Motivo é obrigatório para este tipo de movimentação.'
+        document.getElementById('erroEstoque').classList.remove('escondido')
+        return
+      }
+
+      try {
+        const resp = await fetchComAuth(API_URL + '/estoque/' + tipo, {
+          method: 'POST',
+          body: JSON.stringify({ produto_id: Number(produto_id), quantidade: Number(quantidade), motivo })
+        })
+        const data = await resp.json()
+        if (resp.ok) {
+          document.getElementById('sucessoEstoque').textContent = data.mensagem
+          document.getElementById('sucessoEstoque').classList.remove('escondido')
+          document.getElementById('formEstoque').reset()
+          carregarProdutosAdmin()
+          carregarHistorico()
+          carregarDashboard()
+        } else {
+          document.getElementById('erroEstoque').textContent = data.erro || 'Erro ao registrar movimentação.'
+          document.getElementById('erroEstoque').classList.remove('escondido')
+        }
+      } catch (err) {
+        document.getElementById('erroEstoque').textContent = 'Falha na comunicação com o servidor.'
+        document.getElementById('erroEstoque').classList.remove('escondido')
+      }
+    })
+
+    document.querySelector('.admin-tabs').addEventListener('click', function(e) {
+      const btn = e.target.closest('.tab-btn')
+      if (!btn) return
+      const tabs = document.querySelectorAll('.tab-btn')
+      const conteudos = document.querySelectorAll('.tab-conteudo')
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('ativo')
+      }
+      for (let i = 0; i < conteudos.length; i++) {
+        conteudos[i].classList.add('escondido')
+      }
+      btn.classList.add('ativo')
+      document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.remove('escondido')
+    })
+
+    function mostrarToastAdmin(msg, tipo) {
+      const aviso = document.createElement('div')
+      aviso.textContent = msg
+      const cor = tipo === 'erro' ? '#ff4d6d' : '#00b4d8'
+      aviso.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:' + cor + ';color:#fff;padding:12px 24px;border-radius:50px;font-weight:600;font-size:0.9rem;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);white-space:nowrap;transition:opacity 0.5s;'
+      document.body.appendChild(aviso)
+      setTimeout(function() { aviso.style.opacity = '0' }, 2200)
+      setTimeout(function() { if (aviso.parentNode) document.body.removeChild(aviso) }, 2700)
+    }
+
+    atualizarNav()
+    carregarDashboard()
+    carregarCategorias()
+    carregarProdutosAdmin()
+    carregarPedidosAdmin()
+    carregarHistorico()
+</script>
+</body>
+</html>

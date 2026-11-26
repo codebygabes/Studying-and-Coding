@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Nexvion Tech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="pagina-auth">
+
+  <header class="header header-simples">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        <div>
+          <span class="logo-nome">Nexvion Tech</span>
+          <p class="logo-slogan">Tecnologia de ponta para você</p>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2 class="auth-titulo">Entrar na sua conta</h2>
+
+      <div class="erro-box escondido" id="erroBox"></div>
+      <div class="sucesso-box escondido" id="sucessoBox"></div>
+
+      <form id="formLogin" class="auth-form" novalidate>
+        <div class="campo-grupo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+          <span class="campo-erro" id="erroEmail"></span>
+        </div>
+        <div class="campo-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="Sua senha" required />
+          <span class="campo-erro" id="erroSenha"></span>
+        </div>
+        <button type="submit" class="btn-auth" id="btnLogin">Entrar</button>
+      </form>
+
+      <p class="auth-link">Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Nexvion Tech – Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/produtos.js"></script>
+  <script>
+    if (estaLogado()) {
+      window.location.href = 'index.html'
+    }
+
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('cadastro') === 'ok') {
+      document.getElementById('sucessoBox').textContent = 'Cadastro realizado! Faça login para continuar.'
+      document.getElementById('sucessoBox').classList.remove('escondido')
+    }
+
+    document.getElementById('formLogin').addEventListener('submit', async function(e) {
+      e.preventDefault()
+
+      const email = document.getElementById('email').value.trim()
+      const senha = document.getElementById('senha').value
+
+      document.getElementById('erroEmail').textContent = ''
+      document.getElementById('erroSenha').textContent = ''
+      document.getElementById('erroBox').classList.add('escondido')
+
+      let valido = true
+
+      if (!email) {
+        document.getElementById('erroEmail').textContent = 'E-mail é obrigatório.'
+        valido = false
+      }
+      if (!senha) {
+        document.getElementById('erroSenha').textContent = 'Senha é obrigatória.'
+        valido = false
+      }
+      if (!valido) return
+
+      const btn = document.getElementById('btnLogin')
+      btn.disabled = true
+      btn.textContent = 'Entrando...'
+
+      try {
+        const resp = await fetch(API_URL + '/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, senha })
+        })
+        const data = await resp.json()
+        if (!resp.ok) {
+          document.getElementById('erroBox').textContent = data.erro || 'Erro ao realizar login.'
+          document.getElementById('erroBox').classList.remove('escondido')
+          btn.disabled = false
+          btn.textContent = 'Entrar'
+          return
+        }
+        setSession(data.token, data.usuario)
+        window.location.href = 'index.html'
+      } catch (err) {
+        document.getElementById('erroBox').textContent = 'Falha na comunicação com o servidor.'
+        document.getElementById('erroBox').classList.remove('escondido')
+        btn.disabled = false
+        btn.textContent = 'Entrar'
+      }
+    })
+  </script>
+</body>
+</html>
