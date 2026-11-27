@@ -17,15 +17,6 @@ router.get('/', async (req, res) => {
   res.json(pedidos)
 })
 
-router.get('/:id', async (req, res) => {
-  const id = inteiro(req.params.id, 'Pedido')
-  const [[pedido]] = await pool.execute('SELECT * FROM pedidos WHERE id = ?', [id])
-  exigir(pedido, 'Pedido não encontrado.', 404)
-  exigir(req.usuario.perfil === 'admin' || pedido.usuario_id === req.usuario.id, 'Acesso negado.', 403)
-  const [itens] = await pool.execute('SELECT * FROM itens_pedido WHERE pedido_id = ? ORDER BY id', [id])
-  res.json({ ...pedido, itens })
-})
-
 router.post('/', async (req, res) => {
   const { itens } = req.body
   exigir(Array.isArray(itens) && itens.length > 0 && itens.length <= 100, 'Carrinho deve ter de 1 a 100 produtos distintos.')

@@ -21,13 +21,6 @@ router.get('/categorias', async (req, res) => {
   res.json(rows)
 })
 
-router.get('/:id', async (req, res) => {
-  const id = inteiro(req.params.id, 'Produto')
-  const [[produto]] = await pool.execute(consulta + ' WHERE p.id = ? AND p.ativo = 1', [id])
-  exigir(produto, 'Produto não encontrado.', 404)
-  res.json(produto)
-})
-
 function dadosProduto(body) {
   const nome = texto(body.nome, 'Nome', 200)
   const categoria = inteiro(body.categoria_id, 'Categoria')

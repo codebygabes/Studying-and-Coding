@@ -41,7 +41,7 @@ Alternativa ao Workbench: entre no cliente com `mysql -u root -p` e execute `SOU
 | `backend/db/connection.js` | Pool MySQL com `mysql2/promise` |
 | `backend/util.js` | Validações, centavos, transação e registro de movimentação |
 | `backend/middleware/auth.js` | JWT, sessão ativa no banco e perfil de administrador |
-| `backend/routes/authRoutes.js` | Cadastro, login, logout e perfil |
+| `backend/routes/authRoutes.js` | Cadastro, login e logout |
 | `backend/routes/produtoRoutes.js` | Consulta, cadastro, edição e desativação |
 | `backend/routes/pedidoRoutes.js` | Compra transacional e consulta por proprietário |
 | `backend/routes/estoqueRoutes.js` | Entrada, saída, ajuste, histórico e indicadores |
@@ -75,17 +75,14 @@ O código do produto é seu próprio `id`, retornado também como `codigo` na AP
 | POST | `/api/auth/cadastro` | Público |
 | POST | `/api/auth/login` | Público |
 | POST | `/api/auth/logout` | Autenticado |
-| GET | `/api/auth/perfil` | Autenticado |
 | GET | `/api/produtos` | Público |
 | GET | `/api/produtos/categorias` | Público |
-| GET | `/api/produtos/:id` | Público, somente ativo |
 | GET | `/api/produtos/todos` | Admin |
 | POST | `/api/produtos` | Admin |
 | PUT | `/api/produtos/:id` | Admin |
 | DELETE | `/api/produtos/:id` | Admin, desativa |
 | POST | `/api/pedidos` | Autenticado |
 | GET | `/api/pedidos` | Próprios; admin vê todos |
-| GET | `/api/pedidos/:id` | Proprietário ou admin |
 | GET | `/api/estoque/dashboard` | Admin |
 | GET | `/api/estoque/historico` | Admin |
 | POST | `/api/estoque/entrada` | Admin |

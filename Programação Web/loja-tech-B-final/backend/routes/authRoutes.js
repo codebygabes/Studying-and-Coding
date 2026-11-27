@@ -43,6 +43,4 @@ router.post('/logout', autenticar, async (req, res) => {
   res.json({ mensagem: 'Sessão encerrada.' })
 })
 
-router.get('/perfil', autenticar, (req, res) => res.json(req.usuario))
-
 module.exports = router
